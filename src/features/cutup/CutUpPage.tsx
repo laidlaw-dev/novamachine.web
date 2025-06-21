@@ -2,7 +2,9 @@ import { useTranslation } from "react-i18next"
 import FullPageLayout from "../../layouts/FullPageLayout"
 import CutUpInputForm from "./components/CutUpInputForm"
 import { styled } from "@mui/material/styles"
-import { cutUpService } from "./services/cutUpTextService"
+import { cutUpService } from "./services/cutUpService"
+import ResultPanel from "./components/ResultPanel"
+import { useState } from "react"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -13,21 +15,21 @@ const BodyLayout = styled("div")(() => ({
 const CutUpPage = () => {
   const { t } = useTranslation()
 
+  const [results, setResults] = useState<string[]>([])
+
   const handleSubmit = (text: string) => {
-    const result = cutUpService(text)
-    result.forEach(item => console.log(item))
+    const results = cutUpService(text)
+    setResults(results)
   }
 
   return (
     <FullPageLayout title={t("cut_up.title")}>
       <BodyLayout>
         <CutUpInputForm onSubmitForm={handleSubmit} />
+        <ResultPanel results={results} />
       </BodyLayout>
     </FullPageLayout>
   )
 }
 
 export default CutUpPage
-function cutUpTextService(text: string) {
-  throw new Error("Function not implemented.")
-}

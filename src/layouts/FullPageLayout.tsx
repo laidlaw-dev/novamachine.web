@@ -9,11 +9,12 @@ const Title = styled("div")(({ theme }) => ({
 
 const Body = styled("div")(({ theme }) => ({
   flex: 1,
+  overflow: "hidden",
   padding: theme.spacing(1),
 }))
 
 const FullPage = styled("div")(({ theme }) => ({
-  width: "100wh",
+  width: "100vw",
   height: "100vh",
   display: "flex",
   flexDirection: "column",
