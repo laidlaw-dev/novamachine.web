@@ -5,9 +5,11 @@ import DialogActions from "@mui/material/DialogActions"
 import { styled } from "@mui/material/styles"
 import Typography from "@mui/material/Typography"
 import { useTranslation } from "react-i18next"
+import Paper from "@mui/material/Paper"
 
-const OuterPanel = styled("div")(() => ({
+const OuterPanel = styled("div")(({ theme }) => ({
   height: "100%",
+  padding: theme.spacing(1),
   overflowY: "auto",
 }))
 
@@ -15,8 +17,8 @@ const Panel = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: theme.spacing(1),
-  paddingLeft: theme.spacing(1),
-  paddingRight: theme.spacing(1),
+  padding: theme.spacing(1),
+  backgroundColor: theme.palette.background.default,
 }))
 
 interface ResultDialogProps {
@@ -39,9 +41,9 @@ const ResultDialog = ({ cutUps, open, onClose }: ResultDialogProps) => {
       <OuterPanel>
         <Panel>
           {cutUps.map((cutUp, index) => (
-            <div key={index}>
+            <Paper key={index}>
               <Typography variant="body1">{cutUp}</Typography>
-            </div>
+            </Paper>
           ))}
         </Panel>
       </OuterPanel>

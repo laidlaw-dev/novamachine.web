@@ -12,7 +12,7 @@ const FormLayout = styled("form")(({ theme }) => ({
   gap: theme.spacing(1),
 }))
 
-const TextInput = styled(Paper)(({ theme }) => ({
+const TextInput = styled("div")(({ theme }) => ({
   width: "100%",
   height: "100%",
   maxHeight: "100%",
@@ -57,10 +57,18 @@ const CutUpInputForm = ({
         />
       </TextInput>
       <Paper>
-        <Button onClick={onShowResults} disabled={!hasResults}>
+        <Button
+          onClick={onShowResults}
+          disabled={!hasResults}
+          color="secondary"
+        >
           {t("cut_up.cut_ups")}
         </Button>
         <Button type="submit">{t("cut_up.action")}</Button>
+        <Button color="error">Error</Button>
+        <Button color="warning">Warning</Button>
+        <Button color="success">Success</Button>
+        <Button color="info">Info</Button>
       </Paper>
     </FormLayout>
   )

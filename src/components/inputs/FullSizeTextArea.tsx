@@ -1,13 +1,12 @@
+import Paper from "@mui/material/Paper"
 import { styled } from "@mui/material/styles"
 
-const Container = styled("div")(({ theme }) => ({
+const Container = styled(Paper)(() => ({
   width: "100%",
   height: "100%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  border: "1px solid black",
-  borderRadius: theme.shape.borderRadius,
   overflow: "clip",
 }))
 
@@ -17,6 +16,7 @@ const BorderlessTextArea = styled("textarea")(() => ({
   resize: "none",
   outline: "none",
   border: "none",
+  backgroundColor: "transparent",
 }))
 
 const FullSizeTextArea = (props: any) => {
