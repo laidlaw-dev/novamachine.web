@@ -3,6 +3,7 @@ import Paper from "@mui/material/Paper"
 import { styled } from "@mui/material/styles"
 import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 import FullSizeTextArea from "../../../components/inputs/FullSizeTextArea"
+import { useTranslation } from "react-i18next"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -20,6 +21,8 @@ const TextInput = styled(Paper)(({ theme }) => ({
 }))
 
 interface CutUpInputFormProps {
+  hasResults: boolean
+  onShowResults: () => void
   onSubmitForm: (text: string) => void
 }
 
@@ -27,8 +30,14 @@ interface CutUpInputFormFields {
   inputText: string
 }
 
-const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
-  const { handleSubmit, control, reset } = useForm<CutUpInputFormFields>({
+const CutUpInputForm = ({
+  hasResults,
+  onShowResults,
+  onSubmitForm,
+}: CutUpInputFormProps) => {
+  const { t } = useTranslation()
+
+  const { handleSubmit, control } = useForm<CutUpInputFormFields>({
     defaultValues: {
       inputText: "",
     },
@@ -48,7 +57,10 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
         />
       </TextInput>
       <Paper>
-        <Button type="submit">Submit</Button>
+        <Button onClick={onShowResults} disabled={!hasResults}>
+          {t("cut_up.cut_ups")}
+        </Button>
+        <Button type="submit">{t("cut_up.action")}</Button>
       </Paper>
     </FormLayout>
   )

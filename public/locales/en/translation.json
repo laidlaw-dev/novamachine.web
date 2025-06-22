@@ -1,5 +1,11 @@
 {
+  "common": {
+    "close": "Close",
+    "copy": "Copy"
+  },
   "cut_up": {
-    "title": "Cut up technique"
+    "title": "Cut up technique",
+    "action": "Cut up",
+    "cut_ups": "Cut ups"
   }
 }

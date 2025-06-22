@@ -10,6 +10,14 @@ describe("cutUpService", () => {
   })
   test("cuts up, shuffles and rejoins text", () => {
     const text =
+      "the quick brown fox jumps over the very lazy dog lying on the purple rug"
+    const result = cutUpService(text)
+    expect(result).toBeArrayOfSize(2)
+    expect(result[0]).toBe("the purple rug dog lying on the very lazy")
+    expect(result[1]).toBe("fox jumps over the quick brown")
+  })
+  test("when text length non mod, cuts up, shuffles and rejoins text", () => {
+    const text =
       "the quick brown fox jumps over the very lazy dog lying on the rug"
     const result = cutUpService(text)
     expect(result).toBeArrayOfSize(2)

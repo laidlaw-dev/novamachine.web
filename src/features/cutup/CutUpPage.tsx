@@ -3,8 +3,8 @@ import FullPageLayout from "../../layouts/FullPageLayout"
 import CutUpInputForm from "./components/CutUpInputForm"
 import { styled } from "@mui/material/styles"
 import { cutUpService } from "./services/cutUpService"
-import ResultPanel from "./components/ResultPanel"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import ResultDialog from "./components/ResultDialog"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -15,19 +15,34 @@ const BodyLayout = styled("div")(() => ({
 const CutUpPage = () => {
   const { t } = useTranslation()
 
-  const [results, setResults] = useState<string[]>([])
+  const [cutUps, setCutUps] = useState<string[]>([])
+  const [showResult, setShowResult] = useState(false)
 
   const handleSubmit = (text: string) => {
-    const results = cutUpService(text)
-    setResults(results)
+    const cutUps = cutUpService(text)
+    setCutUps(cutUps)
   }
+
+  useEffect(() => {
+    if (cutUps.length > 0) {
+      setShowResult(true)
+    }
+  }, [cutUps, setShowResult])
 
   return (
     <FullPageLayout title={t("cut_up.title")}>
       <BodyLayout>
-        <CutUpInputForm onSubmitForm={handleSubmit} />
-        <ResultPanel results={results} />
+        <CutUpInputForm
+          hasResults={cutUps.length > 0}
+          onShowResults={() => setShowResult(true)}
+          onSubmitForm={handleSubmit}
+        />
       </BodyLayout>
+      <ResultDialog
+        cutUps={cutUps}
+        open={showResult}
+        onClose={() => setShowResult(false)}
+      />
     </FullPageLayout>
   )
 }
