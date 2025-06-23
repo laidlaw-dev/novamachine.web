@@ -41,8 +41,8 @@ const ResultDialog = ({ cutUps, open, onClose }: ResultDialogProps) => {
       <OuterPanel>
         <Panel>
           {cutUps.map((cutUp, index) => (
-            <Paper key={index}>
-              <Typography variant="body1">{cutUp}</Typography>
+            <Paper key={index} sx={{ padding: 1 }}>
+              <Typography variant="mono">{cutUp}</Typography>
             </Paper>
           ))}
         </Panel>

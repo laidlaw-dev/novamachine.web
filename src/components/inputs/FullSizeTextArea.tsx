@@ -15,8 +15,10 @@ const BorderlessTextArea = styled("textarea")(() => ({
   height: "100%",
   resize: "none",
   outline: "none",
+  fontFamily: "Cousine",
   border: "none",
   backgroundColor: "transparent",
+  fontSize: "1rem",
 }))
 
 const FullSizeTextArea = (props: any) => {
