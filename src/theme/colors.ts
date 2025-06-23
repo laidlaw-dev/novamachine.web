@@ -1,4 +1,28 @@
-export const colors = {
+interface IColorSwatch {
+  readonly 50: string
+  readonly 100: string
+  readonly 200: string
+  readonly 300: string
+  readonly 400: string
+  readonly 500: string
+  readonly 600: string
+  readonly 700: string
+  readonly 800: string
+  readonly 900: string
+}
+
+interface IColors {
+  readonly primary: IColorSwatch
+  readonly secondary: IColorSwatch
+  readonly error: IColorSwatch
+  readonly warning: IColorSwatch
+  readonly info: IColorSwatch
+  readonly success: IColorSwatch
+  readonly background: IColorSwatch
+  readonly container: IColorSwatch
+}
+
+export const colors: IColors = {
   primary: {
     50: "#fcf9f9",
     100: "#f5eceb",
@@ -71,7 +95,7 @@ export const colors = {
     800: "#4530c1",
     900: "#1d19ac",
   },
-  neutral: {
+  background: {
     50: "#fafafa",
     100: "#eeeeee",
     200: "#d5d5d5",
@@ -95,4 +119,12 @@ export const colors = {
     800: "#4e4c46",
     900: "#393834",
   },
+}
+
+interface IExtendedPalette {
+  readonly containerFocus: string
+}
+
+export const extendedPalette: IExtendedPalette = {
+  containerFocus: colors.container[500],
 }

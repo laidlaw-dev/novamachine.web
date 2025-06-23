@@ -18,7 +18,7 @@ const createSlices = (words: string[], slices: string[]): string[] => {
 
 const joinSlices = (slices: string[], joined: string[]): string[] => {
   const joinLength = 3
-  if (joinLength > slices.length) return [...joined, slices.join(" ")]
+  if (joinLength >= slices.length) return [...joined, slices.join(" ")]
   const join = slices.slice(0, joinLength)
   return joinSlices(slices.slice(joinLength), [...joined, join.join(" ")])
 }

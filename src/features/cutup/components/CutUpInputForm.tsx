@@ -1,9 +1,9 @@
 import Button from "@mui/material/Button"
-import Paper from "@mui/material/Paper"
 import { styled } from "@mui/material/styles"
 import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 import FullSizeTextArea from "../../../components/inputs/FullSizeTextArea"
 import { useTranslation } from "react-i18next"
+import ControlBarLayout from "../../../layouts/ControlBarLayout"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -21,8 +21,6 @@ const TextInput = styled("div")(({ theme }) => ({
 }))
 
 interface CutUpInputFormProps {
-  hasResults: boolean
-  onShowResults: () => void
   onSubmitForm: (text: string) => void
 }
 
@@ -30,11 +28,7 @@ interface CutUpInputFormFields {
   inputText: string
 }
 
-const CutUpInputForm = ({
-  hasResults,
-  onShowResults,
-  onSubmitForm,
-}: CutUpInputFormProps) => {
+const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
   const { t } = useTranslation()
 
   const { handleSubmit, control } = useForm<CutUpInputFormFields>({
@@ -53,23 +47,19 @@ const CutUpInputForm = ({
           name="inputText"
           control={control}
           rules={{ required: true }}
-          render={({ field }) => <FullSizeTextArea {...field} />}
+          render={({ field }) => (
+            <FullSizeTextArea
+              {...field}
+              placeholder={t("cut_up.enter_source_text")}
+            />
+          )}
         />
       </TextInput>
-      <Paper>
-        <Button
-          onClick={onShowResults}
-          disabled={!hasResults}
-          color="secondary"
-        >
-          {t("cut_up.cut_ups")}
+      <ControlBarLayout>
+        <Button type="submit" size="large">
+          {t("cut_up.action")}
         </Button>
-        <Button type="submit">{t("cut_up.action")}</Button>
-        <Button color="error">Error</Button>
-        <Button color="warning">Warning</Button>
-        <Button color="success">Success</Button>
-        <Button color="info">Info</Button>
-      </Paper>
+      </ControlBarLayout>
     </FormLayout>
   )
 }

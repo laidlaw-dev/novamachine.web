@@ -42,7 +42,7 @@ export const theme = createTheme({
       secondary: "#77736b",
     },
     background: {
-      default: colors.neutral[100],
+      default: colors.background[100],
       paper: colors.container[100],
     },
   },
@@ -89,8 +89,13 @@ export const theme = createTheme({
     MuiDialog: {
       styleOverrides: {
         paper: {
-          backgroundColor: colors.neutral[100],
+          backgroundColor: colors.background[100],
         },
+      },
+    },
+    MuiSvgIcon: {
+      defaultProps: {
+        fontSize: "inherit",
       },
     },
   },
