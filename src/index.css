@@ -1,9 +1,44 @@
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url(./assets/fonts/BarlowCondensed-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url(./assets/fonts/BarlowCondensed-Italic.ttf) format("truetype");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url(./assets/fonts/BarlowCondensed-Bold.ttf) format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url(./assets/fonts/BarlowCondensed-BoldItalic.ttf) format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: url(./assets/fonts/BebasNeue-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Cousine;
+  src: url(./assets/fonts/Cousine-Regular.ttf) format("truetype");
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  font-family: "Barlow Condensed";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

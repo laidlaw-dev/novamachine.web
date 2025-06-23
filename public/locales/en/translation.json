@@ -1,11 +1,12 @@
 {
   "common": {
     "close": "Close",
-    "copy": "Copy"
+    "copy_to_clipboard": "Copy to clipboard",
+    "show_results": "Show results"
   },
   "cut_up": {
     "title": "Cut up technique",
     "action": "Cut up",
-    "cut_ups": "Cut ups"
+    "enter_source_text": "Enter some source text..."
   }
 }
