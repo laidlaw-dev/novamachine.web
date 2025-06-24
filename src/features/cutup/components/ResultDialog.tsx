@@ -2,62 +2,74 @@ import Dialog from "@mui/material/Dialog"
 import DialogTitle from "@mui/material/DialogTitle"
 import DialogActions from "@mui/material/DialogActions"
 import { styled } from "@mui/material/styles"
-import Typography from "@mui/material/Typography"
 import { useTranslation } from "react-i18next"
-import Paper from "@mui/material/Paper"
 import ControlBarLayout from "../../../layouts/ControlBarLayout"
 import ContentCopy from "@mui/icons-material/ContentCopy"
 import DialogActionButton from "../../../components/inputs/DialogActionButton"
 import IconActionButton from "../../../components/inputs/IconActionButton"
-
-const OuterPanel = styled("div")(({ theme }) => ({
-  height: "100%",
-  padding: theme.spacing(1),
-  overflowY: "auto",
-}))
+import CutUpResult from "./CutUpResult"
+import type { CutUpText } from "../hooks/cutUpReducer"
+import DeleteOutlined from "@mui/icons-material/DeleteOutlined"
+import AnimatedList from "../../../components/display/AnimatedList"
 
 const Panel = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: theme.spacing(1),
-  padding: theme.spacing(1),
+  paddingLeft: theme.spacing(1),
+  paddingRight: theme.spacing(1),
   backgroundColor: theme.palette.background.default,
 }))
 
 interface ResultDialogProps {
-  cutUpResults: string[]
+  cutUpResults: CutUpText[]
   open: boolean
   onClose: () => void
+  onDeleteSingle: (index: number) => void
+  onDeleteAll: () => void
+  onReorder: (keys: string[]) => void
 }
 
-const ResultDialog = ({ cutUpResults, open, onClose }: ResultDialogProps) => {
+const ResultDialog = ({
+  cutUpResults,
+  open,
+  onClose,
+  onDeleteSingle,
+  onDeleteAll,
+  onReorder,
+}: ResultDialogProps) => {
   const { t } = useTranslation()
 
   const handleCopyToClipboard = () => {
-    const text = cutUpResults.join(" ").trim()
+    const text = cutUpResults
+      .map(item => item.text)
+      .join(" ")
+      .trim()
     navigator.clipboard.writeText(text)
   }
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
-      <DialogTitle>{t("cut_up.cut_ups")}</DialogTitle>
+      <DialogTitle>{t("cut_up.results")}</DialogTitle>
       <ControlBarLayout>
         <IconActionButton
-          title={"common.copy_to_clipboard"}
+          title={t("common.copy_to_clipboard")}
           onClick={handleCopyToClipboard}
         >
           <ContentCopy />
         </IconActionButton>
+        <IconActionButton title={t("common.delete_all")} onClick={onDeleteAll}>
+          <DeleteOutlined />
+        </IconActionButton>
       </ControlBarLayout>
-      <OuterPanel>
-        <Panel>
-          {cutUpResults.map((text, index) => (
-            <Paper key={index} sx={{ padding: 1 }}>
-              <Typography variant="mono">{text}</Typography>
-            </Paper>
+      <Panel>
+        <AnimatedList onReorder={onReorder}>
+          {cutUpResults.map(item => (
+            <CutUpResult
+              key={item.index}
+              text={item}
+              onDelete={onDeleteSingle}
+            />
           ))}
-        </Panel>
-      </OuterPanel>
+        </AnimatedList>
+      </Panel>
       <DialogActions>
         <DialogActionButton onClick={onClose}>
           {t("common.close")}
