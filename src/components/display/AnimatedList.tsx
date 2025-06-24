@@ -43,6 +43,7 @@ const AnimatedList = ({ onReorder, children }: AnimatedListProps) => {
               height: { duration: 0.25, delay: 0.25 },
             }}
             style={{
+              cursor: "grab",
               marginBottom: theme.spacing(0.5),
               "&:firstChild": {
                 marginBottom: theme.spacing(0.25),
