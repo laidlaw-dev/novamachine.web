@@ -3,11 +3,12 @@ import FullPageLayout from "../../layouts/FullPageLayout"
 import CutUpInputForm from "./components/CutUpInputForm"
 import { styled } from "@mui/material/styles"
 import { cutUpService } from "./services/cutUpService"
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import ResultDialog from "./components/ResultDialog"
 import ControlBarLayout from "../../layouts/ControlBarLayout"
 import IconActionButton from "../../components/inputs/IconActionButton"
-import Assignment from "@mui/icons-material/Assignment"
+import AssignmentOutlined from "@mui/icons-material/AssignmentOutlined"
+import { cutUpReducerFunction, initialState } from "./hooks/cutUpReducer"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -19,16 +20,36 @@ const BodyLayout = styled("div")(() => ({
 const CutUpPage = () => {
   const { t } = useTranslation()
 
-  const [cutUpResults, setCutUpResults] = useState<string[]>([])
+  const [cutUpResults, cutUpDispatch] = useReducer(
+    cutUpReducerFunction,
+    initialState,
+  )
   const [showResult, setShowResult] = useState(false)
 
   const handleSubmit = (text: string) => {
     const cutUpResults = cutUpService(text)
-    setCutUpResults(cutUpResults)
+    cutUpDispatch({ type: "add", payload: { results: cutUpResults } })
+  }
+
+  const handleDeleteSingle = (index: number) => {
+    cutUpDispatch({ type: "delete_single", payload: { index: index } })
+  }
+
+  const handleDeleteAll = () => {
+    cutUpDispatch({ type: "delete_all" })
+  }
+
+  const handleReorder = (keys: string[]) => {
+    cutUpDispatch({
+      type: "reorder",
+      payload: {
+        indicies: keys.map(i => parseInt(i)),
+      },
+    })
   }
 
   useEffect(() => {
-    if (cutUpResults.length > 0) {
+    if (cutUpResults.results.length > 0) {
       setShowResult(true)
     }
   }, [cutUpResults, setShowResult])
@@ -39,18 +60,21 @@ const CutUpPage = () => {
         <ControlBarLayout>
           <IconActionButton
             onClick={() => setShowResult(true)}
-            disabled={cutUpResults.length === 0}
+            disabled={cutUpResults.results.length === 0}
             title={t("common.show_results")}
           >
-            <Assignment />
+            <AssignmentOutlined />
           </IconActionButton>
         </ControlBarLayout>
         <CutUpInputForm onSubmitForm={handleSubmit} />
       </BodyLayout>
       <ResultDialog
-        cutUpResults={cutUpResults}
+        cutUpResults={cutUpResults.results}
         open={showResult}
         onClose={() => setShowResult(false)}
+        onDeleteSingle={handleDeleteSingle}
+        onDeleteAll={handleDeleteAll}
+        onReorder={handleReorder}
       />
     </FullPageLayout>
   )

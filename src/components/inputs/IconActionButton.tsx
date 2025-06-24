@@ -2,9 +2,9 @@ import IconButton, { type IconButtonProps } from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 
 const IconActionButton = (props: IconButtonProps) => {
-  const { title, ...rest } = props
+  const { title, disabled, ...rest } = props
 
-  if (title != null) {
+  if (title != null && !disabled) {
     return (
       <Tooltip title={title}>
         <IconButton color="secondary" size="small" {...rest}>
@@ -14,7 +14,7 @@ const IconActionButton = (props: IconButtonProps) => {
     )
   }
   return (
-    <IconButton color="secondary" size="small" {...rest}>
+    <IconButton color="secondary" size="small" disabled={disabled} {...rest}>
       {props.children}
     </IconButton>
   )
