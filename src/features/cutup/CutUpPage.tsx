@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next"
 import FullPageLayout from "../../layouts/FullPageLayout"
-import CutUpInputForm from "./components/CutUpInputForm"
+import CutUpInputForm, {
+  type CutUpInputFormFields,
+} from "./components/CutUpInputForm"
 import { styled } from "@mui/material/styles"
 import { cutUpService } from "./services/cutUpService"
 import { useEffect, useReducer, useState } from "react"
@@ -26,8 +28,12 @@ const CutUpPage = () => {
   )
   const [showResult, setShowResult] = useState(false)
 
-  const handleSubmit = (text: string) => {
-    const cutUpResults = cutUpService(text)
+  const handleSubmit = (data: CutUpInputFormFields) => {
+    const cutUpResults = cutUpService(
+      data.inputText,
+      { length: data.sliceLength, randomize: data.sliceRandomize * 0.1 },
+      { length: data.joinLength, randomize: data.joinRandomize * 0.1 },
+    )
     cutUpDispatch({ type: "add", payload: { results: cutUpResults } })
   }
 
