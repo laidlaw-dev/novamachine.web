@@ -9,6 +9,10 @@
     "title": "Cut up technique",
     "action": "Cut up",
     "results": "Cut up results",
-    "enter_source_text": "Enter some source text..."
+    "enter_source_text": "Enter some source text...",
+    "cut": "Cut",
+    "join": "Join",
+    "length": "Length",
+    "random": "Random"
   }
 }
