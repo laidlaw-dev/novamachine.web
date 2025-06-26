@@ -10,7 +10,6 @@ export const cutUpService = (
   if (text.length === 0) return []
   const words = splitText(cleanText(text))
   const slices = createSlices(words, [], randomizeCut)
-  console.log(slices)
   const shuffledSlices = shuffle<string>(slices)
   return joinSlices(shuffledSlices, [], randomizeJoin)
 }
@@ -21,7 +20,6 @@ const createSlices = (
   randomize: RandomParams,
 ): string[] => {
   const cutLength = random(randomize)
-  console.log(randomize.length, randomize.randomize, cutLength)
   if (cutLength >= words.length) return [...slices, words.join(" ")]
   const cut = words.slice(0, cutLength)
   return createSlices(
@@ -37,7 +35,6 @@ const joinSlices = (
   randomize: RandomParams,
 ): string[] => {
   const joinLength = random(randomize)
-  console.log(randomize.length, randomize.randomize, joinLength)
   if (joinLength >= slices.length) return [...joined, slices.join(" ")]
   const join = slices.slice(0, joinLength)
   return joinSlices(

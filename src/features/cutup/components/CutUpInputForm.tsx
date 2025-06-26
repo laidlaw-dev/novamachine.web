@@ -4,7 +4,8 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 import FullSizeTextArea from "../../../components/inputs/FullSizeTextArea"
 import { useTranslation } from "react-i18next"
 import ControlBarLayout from "../../../layouts/ControlBarLayout"
-import Slider from "@mui/material/Slider"
+import LabelledControlPanelLayout from "../../../layouts/LabelledControlPanelLayout"
+import LabelledSlider from "../../../components/inputs/LabelledSlider"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -21,21 +22,14 @@ const TextInput = styled("div")(({ theme }) => ({
   overflowY: "auto",
 }))
 
-const SliderBlock = styled("div")(({ theme }) => ({
-  width: "300px",
-  display: "flex",
-  flexDirection: "column",
-  gap: theme.spacing(0.5),
-}))
-
 const Spacer = styled("div")(() => ({
   flex: 1,
 }))
 
 export interface CutUpInputFormFields {
   inputText: string
-  sliceLength: number
-  sliceRandomize: number
+  cutLength: number
+  cutRandomize: number
   joinLength: number
   joinRandomize: number
 }
@@ -50,8 +44,8 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
   const { handleSubmit, control } = useForm<CutUpInputFormFields>({
     defaultValues: {
       inputText: "",
-      sliceLength: 2,
-      sliceRandomize: 5,
+      cutLength: 2,
+      cutRandomize: 5,
       joinLength: 3,
       joinRandomize: 5,
     },
@@ -76,31 +70,60 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
         />
       </TextInput>
       <ControlBarLayout>
-        <SliderBlock>
+        <LabelledControlPanelLayout
+          label={t("cut_up.cut")}
+          width="300px"
+          color="background"
+        >
           <Controller
-            name="sliceLength"
+            name="cutLength"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <Slider step={1} marks min={2} max={5} {...field} />
+              <LabelledSlider
+                label={t("cut_up.length")}
+                step={1}
+                marks
+                min={1}
+                max={10}
+                {...field}
+              />
             )}
           />
           <Controller
-            name="sliceRandomize"
+            name="cutRandomize"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <Slider step={1} marks min={0} max={10} {...field} />
+              <LabelledSlider
+                label={t("cut_up.random")}
+                step={1}
+                marks
+                min={0}
+                max={10}
+                {...field}
+              />
             )}
           />
-        </SliderBlock>
-        <SliderBlock>
+        </LabelledControlPanelLayout>
+        <LabelledControlPanelLayout
+          label={t("cut_up.join")}
+          width="300px"
+          color="background"
+        >
           <Controller
             name="joinLength"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <Slider step={1} marks min={1} max={10} {...field} />
+              <LabelledSlider
+                label={t("cut_up.length")}
+                step={1}
+                marks
+                min={1}
+                max={10}
+                {...field}
+              />
             )}
           />
           <Controller
@@ -108,10 +131,17 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <Slider step={1} marks min={0} max={10} {...field} />
+              <LabelledSlider
+                label={t("cut_up.random")}
+                step={1}
+                marks
+                min={0}
+                max={10}
+                {...field}
+              />
             )}
           />
-        </SliderBlock>
+        </LabelledControlPanelLayout>
         <Spacer />
         <Button type="submit" size="large">
           {t("cut_up.action")}

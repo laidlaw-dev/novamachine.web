@@ -123,8 +123,10 @@ export const colors: Colors = {
 
 interface ExtendedPalette {
   readonly containerFocus: string
+  readonly backgroundFocus: string
 }
 
 export const extendedPalette: ExtendedPalette = {
   containerFocus: colors.container[500],
+  backgroundFocus: colors.background[500],
 }

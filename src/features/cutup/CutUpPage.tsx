@@ -31,7 +31,7 @@ const CutUpPage = () => {
   const handleSubmit = (data: CutUpInputFormFields) => {
     const cutUpResults = cutUpService(
       data.inputText,
-      { length: data.sliceLength, randomize: data.sliceRandomize * 0.1 },
+      { length: data.cutLength, randomize: data.cutRandomize * 0.1 },
       { length: data.joinLength, randomize: data.joinRandomize * 0.1 },
     )
     cutUpDispatch({ type: "add", payload: { results: cutUpResults } })
