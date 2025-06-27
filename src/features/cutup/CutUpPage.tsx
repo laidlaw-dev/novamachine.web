@@ -61,28 +61,30 @@ const CutUpPage = () => {
   }, [cutUpResults, setShowResult])
 
   return (
-    <FullPageLayout title={t("cut_up.title")}>
-      <BodyLayout>
-        <ControlBarLayout>
-          <IconActionButton
-            onClick={() => setShowResult(true)}
-            disabled={cutUpResults.results.length === 0}
-            title={t("common.show_results")}
-          >
-            <AssignmentOutlined />
-          </IconActionButton>
-        </ControlBarLayout>
-        <CutUpInputForm onSubmitForm={handleSubmit} />
-      </BodyLayout>
-      <ResultDialog
-        cutUpResults={cutUpResults.results}
-        open={showResult}
-        onClose={() => setShowResult(false)}
-        onDeleteSingle={handleDeleteSingle}
-        onDeleteAll={handleDeleteAll}
-        onReorder={handleReorder}
-      />
-    </FullPageLayout>
+    <>
+      <FullPageLayout title={t("cut_up.title")}>
+        <BodyLayout>
+          <ControlBarLayout>
+            <IconActionButton
+              onClick={() => setShowResult(true)}
+              disabled={cutUpResults.results.length === 0}
+              title={t("common.show_results")}
+            >
+              <AssignmentOutlined />
+            </IconActionButton>
+          </ControlBarLayout>
+          <CutUpInputForm onSubmitForm={handleSubmit} />
+        </BodyLayout>
+        <ResultDialog
+          cutUpResults={cutUpResults.results}
+          open={showResult}
+          onClose={() => setShowResult(false)}
+          onDeleteSingle={handleDeleteSingle}
+          onDeleteAll={handleDeleteAll}
+          onReorder={handleReorder}
+        />
+      </FullPageLayout>
+    </>
   )
 }
 

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import ControlBarLayout from "../../../layouts/ControlBarLayout"
 import LabelledControlPanelLayout from "../../../layouts/LabelledControlPanelLayout"
 import LabelledSlider from "../../../components/inputs/LabelledSlider"
+import useOnboardingTour from "../../onboarding/hooks/useOnboardingTour"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -40,6 +41,7 @@ interface CutUpInputFormProps {
 
 const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
   const { t } = useTranslation()
+  const { registerElement } = useOnboardingTour()
 
   const { handleSubmit, control } = useForm<CutUpInputFormFields>({
     defaultValues: {
@@ -56,7 +58,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
 
   return (
     <FormLayout onSubmit={handleSubmit(onSubmit)}>
-      <TextInput>
+      <TextInput className="textInput">
         <Controller
           name="inputText"
           control={control}
@@ -69,7 +71,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
           )}
         />
       </TextInput>
-      <ControlBarLayout>
+      <ControlBarLayout ref={element => registerElement("controls", element)}>
         <LabelledControlPanelLayout
           label={t("cut_up.cut")}
           width="300px"
@@ -87,6 +89,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
                 min={1}
                 max={10}
                 {...field}
+                className="cut"
               />
             )}
           />
@@ -123,6 +126,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
                 min={1}
                 max={10}
                 {...field}
+                className="join"
               />
             )}
           />
@@ -143,7 +147,11 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
           />
         </LabelledControlPanelLayout>
         <Spacer />
-        <Button type="submit" size="large">
+        <Button
+          type="submit"
+          size="large"
+          ref={element => registerElement("cutup", element)}
+        >
           {t("cut_up.action")}
         </Button>
       </ControlBarLayout>
