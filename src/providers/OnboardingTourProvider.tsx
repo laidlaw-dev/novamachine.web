@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 import {
-  useStore,
+  useOnboardingTourStore,
   OnboardingTourContext,
   type OnboardingStep,
 } from "../features/onboarding/hooks/useOnboardingTour"
@@ -12,7 +12,7 @@ const OnboardingTourProvider = ({
   steps: OnboardingStep[]
   children: ReactNode
 }) => {
-  const store = useStore(steps)
+  const store = useOnboardingTourStore(steps)
 
   return (
     <OnboardingTourContext.Provider value={store}>

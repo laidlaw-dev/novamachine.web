@@ -1,16 +1,11 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import type { PopperPlacementType } from "@mui/material/Popper"
+import { createContext, useCallback, useContext, useRef, useState } from "react"
 
 export interface OnboardingStep {
   key: string
   title: string
   text: string
+  placement?: PopperPlacementType
 }
 
 export interface OnboardingStepWithTarget extends OnboardingStep {
@@ -32,7 +27,9 @@ export interface UseOnboardingTour {
   registerElement: (key: string, element: Element | null) => void
 }
 
-export const useStore = (steps: OnboardingStep[]): UseOnboardingTour => {
+export const useOnboardingTourStore = (
+  steps: OnboardingStep[],
+): UseOnboardingTour => {
   const elementMap = useRef<Map<string, Element> | null>(null)
   const [tour, setTour] = useState<Tour | null>(null)
 
@@ -55,7 +52,6 @@ export const useStore = (steps: OnboardingStep[]): UseOnboardingTour => {
   )
 
   const startTour = useCallback(() => {
-    console.log("Starting tour")
     const map = getElementMap()
     const tourSteps = steps.filter(step => map.has(step.key))
     if (tourSteps.length === 0) {
@@ -78,7 +74,7 @@ export const useStore = (steps: OnboardingStep[]): UseOnboardingTour => {
     if (tour == null) return
     const map = getElementMap()
     const tourSteps = tour.steps.filter(step => map.has(step.key))
-    if (tourSteps.length === 0) {
+    if (tour.current.stepNumber >= tourSteps.length) {
       setTour(null)
       return
     }
@@ -98,10 +94,6 @@ export const useStore = (steps: OnboardingStep[]): UseOnboardingTour => {
     setTour(null)
   }, [setTour])
 
-  useEffect(() => {
-    startTour()
-  }, [startTour])
-
   return {
     currentStep: tour != null ? tour.current : null,
     startTour,
@@ -117,13 +109,11 @@ export const OnboardingTourContext = createContext<UseOnboardingTour | null>(
 
 const useOnboardingTour = () => {
   const context = useContext(OnboardingTourContext)
-
   if (!context) {
     throw new Error(
       "No OnboardingTourContext set, use OnboardingTourProvider to set one",
     )
   }
-
   return context
 }
 

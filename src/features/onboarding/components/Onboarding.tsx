@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 import OnboardingPopover from "./OnboardingPopover"
-import OnboardingTourProvider from "../../../providers/onboardingTourProvider"
+import OnboardingTourProvider from "../../../providers/OnboardingTourProvider"
 import useOnboardingTour from "../hooks/useOnboardingTour"
 
 const popoverSteps = [
@@ -36,18 +36,20 @@ const Onboarding = ({ children }: OnboardingProps) => {
 
 const PopoverWrapper = () => {
   const { currentStep, nextStep, endTour } = useOnboardingTour()
-  if (currentStep == null) return null
-  return (
+
+  return currentStep != null ? (
     <OnboardingPopover
+      key={currentStep.stepNumber}
       title={currentStep.title}
       text={currentStep.text}
       stepNumber={currentStep.stepNumber}
       totalSteps={currentStep.totalSteps}
       targetElement={currentStep.targetElement}
+      placement={currentStep.placement}
       onNext={nextStep}
       onEnd={endTour}
     />
-  )
+  ) : null
 }
 
 export default Onboarding
