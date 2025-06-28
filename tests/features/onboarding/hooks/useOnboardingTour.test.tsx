@@ -1,6 +1,13 @@
 import { useOnboardingTourStore } from "../../../../src/features/onboarding/hooks/useOnboardingTour"
 import { renderHook, act } from "@testing-library/react"
 
+const mock_hasVisitedPage = vi.fn()
+const mock_setVisitedPage = vi.fn()
+vi.mock("../../../../src/features/onboarding/utils/storage", () => ({
+  hasVisitedPage: (page: string) => mock_hasVisitedPage(page),
+  setVisitedPage: (page: string) => mock_setVisitedPage(page),
+}))
+
 const test_steps = [
   {
     key: "step_1",
@@ -20,6 +27,53 @@ const test_steps = [
 ]
 
 describe("useOnboardingTourStore", () => {
+  describe("registerPage", () => {
+    test("when hasVisitedPage returns true, does nothing", () => {
+      mock_hasVisitedPage.mockReturnValue(true)
+
+      const { result } = renderHook(() => useOnboardingTourStore(test_steps))
+
+      expect(result.current.currentStep).toBeNull()
+
+      act(() => {
+        result.current.registerElement("step_1", document.createElement("div"))
+        result.current.registerElement("step_2", document.createElement("div"))
+        result.current.registerElement("step_3", document.createElement("div"))
+      })
+
+      act(() => {
+        result.current.registerPage("test_page")
+      })
+
+      expect(result.current.currentStep).toBeNull()
+    })
+    test("when hasVisitedPage returns false, starts tour and marks page as visited", () => {
+      mock_hasVisitedPage.mockReturnValue(false)
+
+      const { result } = renderHook(() => useOnboardingTourStore(test_steps))
+
+      expect(result.current.currentStep).toBeNull()
+
+      act(() => {
+        result.current.registerElement("step_1", document.createElement("div"))
+        result.current.registerElement("step_2", document.createElement("div"))
+        result.current.registerElement("step_3", document.createElement("div"))
+      })
+
+      act(() => {
+        result.current.registerPage("test_page")
+      })
+
+      expect(result.current.currentStep?.key).toBe("step_1")
+      expect(result.current.currentStep?.title).toBe("step_1_title")
+      expect(result.current.currentStep?.text).toBe("step_1_text")
+      expect(result.current.currentStep?.stepNumber).toBe(1)
+      expect(result.current.currentStep?.totalSteps).toBe(3)
+      expect(result.current.currentStep?.targetElement).not.toBeNull()
+
+      expect(mock_setVisitedPage).toHaveBeenCalledWith("test_page")
+    })
+  })
   describe("startTour", () => {
     test("startTour starts tour", () => {
       const { result } = renderHook(() => useOnboardingTourStore(test_steps))

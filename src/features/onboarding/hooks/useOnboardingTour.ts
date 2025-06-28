@@ -1,5 +1,13 @@
 import type { PopperPlacementType } from "@mui/material/Popper"
-import { createContext, useCallback, useContext, useRef, useState } from "react"
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { hasVisitedPage, setVisitedPage } from "../utils/storage"
 
 export interface OnboardingStep {
   key: string
@@ -25,6 +33,7 @@ export interface UseOnboardingTour {
   nextStep: () => void
   endTour: () => void
   registerElement: (key: string, element: Element | null) => void
+  registerPage: (key: string | null) => void
 }
 
 export const useOnboardingTourStore = (
@@ -32,6 +41,7 @@ export const useOnboardingTourStore = (
 ): UseOnboardingTour => {
   const elementMap = useRef<Map<string, Element> | null>(null)
   const [tour, setTour] = useState<Tour | null>(null)
+  const [currentPage, setCurrentPage] = useState<string | null>(null)
 
   const getElementMap = useCallback(() => {
     if (!elementMap.current) {
@@ -39,6 +49,15 @@ export const useOnboardingTourStore = (
     }
     return elementMap.current
   }, [])
+
+  useEffect(() => {
+    if (currentPage != null) {
+      if (!hasVisitedPage(currentPage)) {
+        setVisitedPage(currentPage)
+        startTour()
+      }
+    }
+  }, [currentPage])
 
   const registerElement = useCallback(
     (key: string, element: Element | null) => {
@@ -100,6 +119,7 @@ export const useOnboardingTourStore = (
     nextStep,
     endTour,
     registerElement,
+    registerPage: setCurrentPage,
   }
 }
 

@@ -11,6 +11,7 @@ import ControlBarLayout from "../../layouts/ControlBarLayout"
 import IconActionButton from "../../components/inputs/IconActionButton"
 import AssignmentOutlined from "@mui/icons-material/AssignmentOutlined"
 import { cutUpReducerFunction, initialState } from "./hooks/cutUpReducer"
+import useOnboardingTour from "../onboarding/hooks/useOnboardingTour"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -21,6 +22,8 @@ const BodyLayout = styled("div")(() => ({
 
 const CutUpPage = () => {
   const { t } = useTranslation()
+  const { registerPage } = useOnboardingTour()
+  registerPage("cut_up_page")
 
   const [cutUpResults, cutUpDispatch] = useReducer(
     cutUpReducerFunction,
