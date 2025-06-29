@@ -5,6 +5,8 @@ import Paper from "@mui/material/Paper"
 import PopperWithArrow from "../../../components/display/PopperWithArrow"
 import { type PopperPlacementType } from "@mui/material"
 import type { Ref } from "react"
+import { useTranslation } from "react-i18next"
+import FlexSpacer from "../../../layouts/FlexSpacer"
 
 const PopoverContainer = styled(Paper)(({ theme }) => ({
   width: "300px",
@@ -20,7 +22,7 @@ const PopoverContainer = styled(Paper)(({ theme }) => ({
 const PopoverTitle = styled("div")(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(1),
-  alignItems: "center",
+  alignItems: "flex-end",
   justifyContent: "space-between",
 }))
 
@@ -36,7 +38,7 @@ const PopoverButtons = styled("div")(() => ({
 
 interface OnboardingPopoverProps {
   targetElement: Element
-  title: string
+  title?: string
   text: string
   stepNumber: number
   totalSteps: number
@@ -57,6 +59,8 @@ const OnboardingPopover = ({
   onEnd,
   ref,
 }: OnboardingPopoverProps) => {
+  const { t } = useTranslation()
+
   const theme = useTheme()
 
   return (
@@ -69,7 +73,8 @@ const OnboardingPopover = ({
     >
       <PopoverContainer>
         <PopoverTitle>
-          <Typography variant="h6">{title}</Typography>
+          {title && <Typography variant="h6">{title}</Typography>}
+          <FlexSpacer />
           <Typography variant="body2">
             {stepNumber} / {totalSteps}
           </Typography>
@@ -79,11 +84,11 @@ const OnboardingPopover = ({
         </PopoverBody>
         <PopoverButtons>
           <Button variant="text" color="inherit" onClick={onEnd}>
-            End tour
+            {t("onboarding.end_tour")}
           </Button>
           {stepNumber < totalSteps && (
             <Button variant="text" color="inherit" onClick={onNext}>
-              Next
+              {t("onboarding.next_step")}
             </Button>
           )}
         </PopoverButtons>

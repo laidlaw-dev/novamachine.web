@@ -15,7 +15,6 @@ export const hasVisitedPage = (pageKey: string): boolean => {
 export const setVisitedPage = (pageKey: string) => {
   const visitedPagesJson = localStorage.getItem(VISITED_PAGE_STORAGE_KEY)
   try {
-    console.log(visitedPagesJson)
     if (visitedPagesJson) {
       const visitedPages = JSON.parse(visitedPagesJson)
       if (Array.isArray(visitedPages)) {

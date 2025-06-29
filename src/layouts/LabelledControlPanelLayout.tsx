@@ -1,3 +1,4 @@
+import { type Ref } from "react"
 import { styled } from "@mui/material/styles"
 import type { ControlPanelLayoutProps } from "./ControlPanelLayout"
 import { extendedPalette } from "../theme/colors"
@@ -30,7 +31,8 @@ const Label = styled("div", {
 
 interface LabelledControlPanelLayoutProps extends ControlPanelLayoutProps {
   label: string
-  children: ReactNode | ReactNode[]
+  children: ReactNode
+  ref?: Ref<HTMLDivElement>
 }
 
 const LabelledControlPanelLayout = ({
@@ -38,9 +40,10 @@ const LabelledControlPanelLayout = ({
   width,
   color,
   children,
+  ref,
 }: LabelledControlPanelLayoutProps) => {
   return (
-    <ControlPanelLayout width={width} color={color}>
+    <ControlPanelLayout width={width} color={color} ref={ref}>
       <Label color={color}>
         <Typography
           variant="caption"

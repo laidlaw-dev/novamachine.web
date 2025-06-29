@@ -11,7 +11,7 @@ import { hasVisitedPage, setVisitedPage } from "../utils/storage"
 
 export interface OnboardingStep {
   key: string
-  title: string
+  title?: string
   text: string
   placement?: PopperPlacementType
 }

@@ -12,6 +12,8 @@ import IconActionButton from "../../components/inputs/IconActionButton"
 import AssignmentOutlined from "@mui/icons-material/AssignmentOutlined"
 import { cutUpReducerFunction, initialState } from "./hooks/cutUpReducer"
 import useOnboardingTour from "../onboarding/hooks/useOnboardingTour"
+import * as ELEMENT from "../../consts/elementKeys"
+import * as PAGE from "../../consts/pageKeys"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -22,8 +24,11 @@ const BodyLayout = styled("div")(() => ({
 
 const CutUpPage = () => {
   const { t } = useTranslation()
-  const { registerPage } = useOnboardingTour()
-  registerPage("cut_up_page")
+  const { registerPage, registerElement } = useOnboardingTour()
+
+  useEffect(() => {
+    registerPage(PAGE.CUTUP)
+  }, [])
 
   const [cutUpResults, cutUpDispatch] = useReducer(
     cutUpReducerFunction,
@@ -69,6 +74,7 @@ const CutUpPage = () => {
         <BodyLayout>
           <ControlBarLayout>
             <IconActionButton
+              ref={element => registerElement(ELEMENT.CUTUP_RESULT, element)}
               onClick={() => setShowResult(true)}
               disabled={cutUpResults.results.length === 0}
               title={t("common.show_results")}

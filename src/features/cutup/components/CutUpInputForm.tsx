@@ -7,6 +7,7 @@ import ControlBarLayout from "../../../layouts/ControlBarLayout"
 import LabelledControlPanelLayout from "../../../layouts/LabelledControlPanelLayout"
 import LabelledSlider from "../../../components/inputs/LabelledSlider"
 import useOnboardingTour from "../../onboarding/hooks/useOnboardingTour"
+import * as ELEMENT from "../../../consts/elementKeys"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -58,7 +59,9 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
 
   return (
     <FormLayout onSubmit={handleSubmit(onSubmit)}>
-      <TextInput className="textInput">
+      <TextInput
+        ref={element => registerElement(ELEMENT.CUTUP_SOURCE_TEXT, element)}
+      >
         <Controller
           name="inputText"
           control={control}
@@ -71,8 +74,9 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
           )}
         />
       </TextInput>
-      <ControlBarLayout ref={element => registerElement("controls", element)}>
+      <ControlBarLayout>
         <LabelledControlPanelLayout
+          ref={element => registerElement(ELEMENT.CUTUP_CUT, element)}
           label={t("cut_up.cut")}
           width="300px"
           color="background"
@@ -110,6 +114,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
           />
         </LabelledControlPanelLayout>
         <LabelledControlPanelLayout
+          ref={element => registerElement(ELEMENT.CUTUP_JOIN, element)}
           label={t("cut_up.join")}
           width="300px"
           color="background"
@@ -150,7 +155,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
         <Button
           type="submit"
           size="large"
-          ref={element => registerElement("cutup", element)}
+          ref={element => registerElement(ELEMENT.CUTUP_CUTUP, element)}
         >
           {t("cut_up.action")}
         </Button>

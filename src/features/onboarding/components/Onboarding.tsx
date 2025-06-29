@@ -2,32 +2,18 @@ import { type ReactNode } from "react"
 import OnboardingPopover from "./OnboardingPopover"
 import OnboardingTourProvider from "../../../providers/OnboardingTourProvider"
 import useOnboardingTour from "../hooks/useOnboardingTour"
-
-const popoverSteps = [
-  {
-    key: "textInput",
-    title: "Text Input",
-    text: "Some text. The quick brown fox jumps over the lazy dog.",
-  },
-  {
-    key: "controls",
-    title: "Controls",
-    text: "Some text. The quick brown fox jumps over the lazy dog.",
-  },
-  {
-    key: "cutup",
-    title: "Cutup",
-    text: "Some text. The quick brown fox jumps over the lazy dog.",
-  },
-]
+import { useTranslation } from "react-i18next"
+import onboardingSteps from "../../../onboardingSteps"
 
 interface OnboardingProps {
   children: ReactNode | ReactNode[]
 }
 
 const Onboarding = ({ children }: OnboardingProps) => {
+  const { t } = useTranslation()
+
   return (
-    <OnboardingTourProvider steps={popoverSteps}>
+    <OnboardingTourProvider steps={onboardingSteps(t)}>
       {children}
       <PopoverWrapper />
     </OnboardingTourProvider>

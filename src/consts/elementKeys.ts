@@ -1,0 +1,5 @@
+export const CUTUP_SOURCE_TEXT = "cutup_source_text"
+export const CUTUP_CUT = "cutup_cut"
+export const CUTUP_JOIN = "cutup_join"
+export const CUTUP_CUTUP = "cutup_cutup"
+export const CUTUP_RESULT = "cutup_result"
