@@ -24,11 +24,7 @@ const BodyLayout = styled("div")(() => ({
 
 const CutUpPage = () => {
   const { t } = useTranslation()
-  const { registerPage, registerElement } = useOnboardingTour()
-
-  useEffect(() => {
-    registerPage(PAGE.CUTUP)
-  }, [])
+  const { registerElement } = useOnboardingTour()
 
   const [cutUpResults, cutUpDispatch] = useReducer(
     cutUpReducerFunction,
@@ -70,7 +66,7 @@ const CutUpPage = () => {
 
   return (
     <>
-      <FullPageLayout title={t("cut_up.title")}>
+      <FullPageLayout title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
         <BodyLayout>
           <ControlBarLayout>
             <IconActionButton

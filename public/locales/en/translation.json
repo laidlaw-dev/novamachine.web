@@ -28,5 +28,8 @@
     "join_controls": "Set the average number pieces to join together. Random sets how much variance in the number of pieces.",
     "cutup_controls": "Generate the new text. Results will be added to existing results.",
     "results_panel": "The results of the cutup. You can drag the pieces to rearrange them or delete individual pieces. When ready you can copy the results to the clipboard."
+  },
+  "onboarding_common": {
+    "help": "You can replay this tour by clicking on Help."
   }
 }

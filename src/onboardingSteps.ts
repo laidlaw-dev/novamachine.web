@@ -31,6 +31,10 @@ const onboardingSteps = (
       key: ELEMENT.CUTUP_RESULT,
       text: t("onboarding_cutup.results_panel"),
     },
+    {
+      key: ELEMENT.COMMON_HELP,
+      text: t("onboarding_common.help"),
+    },
   ]
 }
 
