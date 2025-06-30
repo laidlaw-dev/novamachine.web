@@ -11,6 +11,9 @@ import ControlBarLayout from "../../layouts/ControlBarLayout"
 import IconActionButton from "../../components/inputs/IconActionButton"
 import AssignmentOutlined from "@mui/icons-material/AssignmentOutlined"
 import { cutUpReducerFunction, initialState } from "./hooks/cutUpReducer"
+import useOnboardingTour from "../onboarding/hooks/useOnboardingTour"
+import * as ELEMENT from "../../consts/elementKeys"
+import * as PAGE from "../../consts/pageKeys"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -21,6 +24,7 @@ const BodyLayout = styled("div")(() => ({
 
 const CutUpPage = () => {
   const { t } = useTranslation()
+  const { registerElement } = useOnboardingTour()
 
   const [cutUpResults, cutUpDispatch] = useReducer(
     cutUpReducerFunction,
@@ -61,28 +65,31 @@ const CutUpPage = () => {
   }, [cutUpResults, setShowResult])
 
   return (
-    <FullPageLayout title={t("cut_up.title")}>
-      <BodyLayout>
-        <ControlBarLayout>
-          <IconActionButton
-            onClick={() => setShowResult(true)}
-            disabled={cutUpResults.results.length === 0}
-            title={t("common.show_results")}
-          >
-            <AssignmentOutlined />
-          </IconActionButton>
-        </ControlBarLayout>
-        <CutUpInputForm onSubmitForm={handleSubmit} />
-      </BodyLayout>
-      <ResultDialog
-        cutUpResults={cutUpResults.results}
-        open={showResult}
-        onClose={() => setShowResult(false)}
-        onDeleteSingle={handleDeleteSingle}
-        onDeleteAll={handleDeleteAll}
-        onReorder={handleReorder}
-      />
-    </FullPageLayout>
+    <>
+      <FullPageLayout title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
+        <BodyLayout>
+          <ControlBarLayout>
+            <IconActionButton
+              ref={element => registerElement(ELEMENT.CUTUP_RESULT, element)}
+              onClick={() => setShowResult(true)}
+              disabled={cutUpResults.results.length === 0}
+              title={t("common.show_results")}
+            >
+              <AssignmentOutlined />
+            </IconActionButton>
+          </ControlBarLayout>
+          <CutUpInputForm onSubmitForm={handleSubmit} />
+        </BodyLayout>
+        <ResultDialog
+          cutUpResults={cutUpResults.results}
+          open={showResult}
+          onClose={() => setShowResult(false)}
+          onDeleteSingle={handleDeleteSingle}
+          onDeleteAll={handleDeleteAll}
+          onReorder={handleReorder}
+        />
+      </FullPageLayout>
+    </>
   )
 }
 

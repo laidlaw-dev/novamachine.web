@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next"
 import ControlBarLayout from "../../../layouts/ControlBarLayout"
 import LabelledControlPanelLayout from "../../../layouts/LabelledControlPanelLayout"
 import LabelledSlider from "../../../components/inputs/LabelledSlider"
+import useOnboardingTour from "../../onboarding/hooks/useOnboardingTour"
+import * as ELEMENT from "../../../consts/elementKeys"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -40,6 +42,7 @@ interface CutUpInputFormProps {
 
 const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
   const { t } = useTranslation()
+  const { registerElement } = useOnboardingTour()
 
   const { handleSubmit, control } = useForm<CutUpInputFormFields>({
     defaultValues: {
@@ -56,7 +59,9 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
 
   return (
     <FormLayout onSubmit={handleSubmit(onSubmit)}>
-      <TextInput>
+      <TextInput
+        ref={element => registerElement(ELEMENT.CUTUP_SOURCE_TEXT, element)}
+      >
         <Controller
           name="inputText"
           control={control}
@@ -71,6 +76,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
       </TextInput>
       <ControlBarLayout>
         <LabelledControlPanelLayout
+          ref={element => registerElement(ELEMENT.CUTUP_CUT, element)}
           label={t("cut_up.cut")}
           width="300px"
           color="background"
@@ -87,6 +93,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
                 min={1}
                 max={10}
                 {...field}
+                className="cut"
               />
             )}
           />
@@ -107,6 +114,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
           />
         </LabelledControlPanelLayout>
         <LabelledControlPanelLayout
+          ref={element => registerElement(ELEMENT.CUTUP_JOIN, element)}
           label={t("cut_up.join")}
           width="300px"
           color="background"
@@ -123,6 +131,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
                 min={1}
                 max={10}
                 {...field}
+                className="join"
               />
             )}
           />
@@ -143,7 +152,11 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
           />
         </LabelledControlPanelLayout>
         <Spacer />
-        <Button type="submit" size="large">
+        <Button
+          type="submit"
+          size="large"
+          ref={element => registerElement(ELEMENT.CUTUP_CUTUP, element)}
+        >
           {t("cut_up.action")}
         </Button>
       </ControlBarLayout>
