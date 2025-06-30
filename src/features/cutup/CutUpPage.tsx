@@ -14,6 +14,7 @@ import { cutUpReducerFunction, initialState } from "./hooks/cutUpReducer"
 import useOnboardingTour from "../onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "../../consts/elementKeys"
 import * as PAGE from "../../consts/pageKeys"
+import SnackbarMessage from "../system_feedback/components/SnackbarMessage"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -22,8 +23,16 @@ const BodyLayout = styled("div")(() => ({
   flexDirection: "column",
 }))
 
+type SnackbarMessages =
+  | "error_process_text"
+  | "error_copy_to_clipboard"
+  | "success_copy_to_clipboard"
+  | null
+
 const CutUpPage = () => {
   const { t } = useTranslation()
+  const [showSnackbar, setShowSnackbar] = useState<SnackbarMessages>(null)
+
   const { registerElement } = useOnboardingTour()
 
   const [cutUpResults, cutUpDispatch] = useReducer(
@@ -33,12 +42,16 @@ const CutUpPage = () => {
   const [showResult, setShowResult] = useState(false)
 
   const handleSubmit = (data: CutUpInputFormFields) => {
-    const cutUpResults = cutUpService(
-      data.inputText,
-      { length: data.cutLength, randomize: data.cutRandomize * 0.1 },
-      { length: data.joinLength, randomize: data.joinRandomize * 0.1 },
-    )
-    cutUpDispatch({ type: "add", payload: { results: cutUpResults } })
+    try {
+      const cutUpResults = cutUpService(
+        data.inputText,
+        { length: data.cutLength, randomize: data.cutRandomize * 0.1 },
+        { length: data.joinLength, randomize: data.joinRandomize * 0.1 },
+      )
+      cutUpDispatch({ type: "add", payload: { results: cutUpResults } })
+    } catch {
+      setShowSnackbar("error_process_text")
+    }
   }
 
   const handleDeleteSingle = (index: number) => {
@@ -56,6 +69,19 @@ const CutUpPage = () => {
         indicies: keys.map(i => parseInt(i)),
       },
     })
+  }
+
+  const handleCopyToClipboard = () => {
+    try {
+      const text = cutUpResults.results
+        .map(item => item.text)
+        .join(" ")
+        .trim()
+      navigator.clipboard.writeText(text)
+      setShowSnackbar("success_copy_to_clipboard")
+    } catch {
+      setShowSnackbar("error_copy_to_clipboard")
+    }
   }
 
   useEffect(() => {
@@ -87,6 +113,25 @@ const CutUpPage = () => {
           onDeleteSingle={handleDeleteSingle}
           onDeleteAll={handleDeleteAll}
           onReorder={handleReorder}
+          onCopyToClipboard={handleCopyToClipboard}
+        />
+        <SnackbarMessage
+          message={t("system_feedback.error_process_text")}
+          severity="error"
+          open={showSnackbar === "error_process_text"}
+          onClose={() => setShowSnackbar(null)}
+        />
+        <SnackbarMessage
+          message={t("system_feedback.error_copy_to_clipboard")}
+          severity="error"
+          open={showSnackbar === "error_copy_to_clipboard"}
+          onClose={() => setShowSnackbar(null)}
+        />
+        <SnackbarMessage
+          message={t("system_feedback.success_copy_to_clipboard")}
+          severity="success"
+          open={showSnackbar === "success_copy_to_clipboard"}
+          onClose={() => setShowSnackbar(null)}
         />
       </FullPageLayout>
     </>

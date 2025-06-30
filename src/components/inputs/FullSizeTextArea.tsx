@@ -27,12 +27,15 @@ const BorderlessTextArea = styled("textarea")(() => ({
   fontSize: "1rem",
 }))
 
-const FullSizeTextArea = (
-  props: DetailedHTMLProps<
+interface FullSizeTextAreaProps
+  extends DetailedHTMLProps<
     HTMLAttributes<HTMLTextAreaElement>,
     HTMLTextAreaElement
-  >,
-) => {
+  > {
+  placeholder?: string
+}
+
+const FullSizeTextArea = (props: FullSizeTextAreaProps) => {
   return (
     <Container>
       <BorderlessTextArea {...props} />
