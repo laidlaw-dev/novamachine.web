@@ -27,6 +27,7 @@ export const setVisitedPage = (pageKey: string) => {
         return
       }
     }
+    /* eslint-disable no-empty*/
   } catch {}
   localStorage.setItem(VISITED_PAGE_STORAGE_KEY, JSON.stringify([pageKey]))
 }

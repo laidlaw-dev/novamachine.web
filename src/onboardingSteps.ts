@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next"
-import type { OnboardingStep } from "./features/onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "./consts/elementKeys"
+import type { OnboardingStep } from "./types/index"
 
 const onboardingSteps = (
   t: TFunction<"translation", undefined>,
@@ -34,6 +34,7 @@ const onboardingSteps = (
     {
       key: ELEMENT.COMMON_HELP,
       text: t("onboarding_common.help"),
+      placement: "bottom",
     },
   ]
 }

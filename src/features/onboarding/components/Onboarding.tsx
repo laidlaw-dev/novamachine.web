@@ -1,5 +1,5 @@
 import { type ReactNode } from "react"
-import OnboardingPopover from "./OnboardingPopover"
+import OnboardingPopup from "./OnboardingPopup"
 import OnboardingTourProvider from "../../../providers/OnboardingTourProvider"
 import useOnboardingTour from "../hooks/useOnboardingTour"
 import { useTranslation } from "react-i18next"
@@ -24,7 +24,7 @@ const PopoverWrapper = () => {
   const { currentStep, nextStep, endTour } = useOnboardingTour()
 
   return currentStep != null ? (
-    <OnboardingPopover
+    <OnboardingPopup
       key={currentStep.stepNumber}
       title={currentStep.title}
       text={currentStep.text}

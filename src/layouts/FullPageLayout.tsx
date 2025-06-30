@@ -45,7 +45,7 @@ const FullPageLayout = ({ title, pageKey, children }: FullPageLayoutProps) => {
     if (pageKey) {
       registerPage(pageKey)
     }
-  }, [])
+  }, [pageKey, registerPage])
 
   return (
     <FullPage>

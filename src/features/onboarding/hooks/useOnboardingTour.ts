@@ -1,4 +1,3 @@
-import type { PopperPlacementType } from "@mui/material/Popper"
 import {
   createContext,
   useCallback,
@@ -8,13 +7,7 @@ import {
   useState,
 } from "react"
 import { hasVisitedPage, setVisitedPage } from "../utils/storage"
-
-export interface OnboardingStep {
-  key: string
-  title?: string
-  text: string
-  placement?: PopperPlacementType
-}
+import type { OnboardingStep } from "../../../types"
 
 export interface OnboardingStepWithTarget extends OnboardingStep {
   stepNumber: number
@@ -50,19 +43,14 @@ export const useOnboardingTourStore = (
     return elementMap.current
   }, [])
 
-  useEffect(() => {
-    if (currentPage != null) {
-      if (!hasVisitedPage(currentPage)) {
-        setVisitedPage(currentPage)
-        startTour()
-      }
-    }
-  }, [currentPage])
-
   const registerElement = useCallback(
     (key: string, element: Element | null) => {
       const map = getElementMap()
-      element != null ? map.set(key, element) : map.delete(key)
+      if (element != null) {
+        map.set(key, element)
+      } else {
+        map.delete(key)
+      }
       return () => {
         map.delete(key)
       }
@@ -87,7 +75,7 @@ export const useOnboardingTourStore = (
         targetElement: map.get(firstStep.key)!,
       },
     })
-  }, [getElementMap, setTour])
+  }, [getElementMap, setTour, steps])
 
   const nextStep = useCallback(() => {
     if (tour == null) return
@@ -112,6 +100,15 @@ export const useOnboardingTourStore = (
   const endTour = useCallback(() => {
     setTour(null)
   }, [setTour])
+
+  useEffect(() => {
+    if (currentPage != null) {
+      if (!hasVisitedPage(currentPage)) {
+        setVisitedPage(currentPage)
+        startTour()
+      }
+    }
+  }, [currentPage, startTour])
 
   return {
     currentStep: tour != null ? tour.current : null,

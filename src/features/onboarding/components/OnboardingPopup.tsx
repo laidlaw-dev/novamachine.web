@@ -36,7 +36,7 @@ const PopoverButtons = styled("div")(() => ({
   justifyContent: "space-between",
 }))
 
-interface OnboardingPopoverProps {
+interface OnboardingPopupProps {
   targetElement: Element
   title?: string
   text: string
@@ -48,7 +48,7 @@ interface OnboardingPopoverProps {
   ref?: Ref<HTMLDivElement>
 }
 
-const OnboardingPopover = ({
+const OnboardingPopup = ({
   targetElement,
   title,
   text,
@@ -58,7 +58,7 @@ const OnboardingPopover = ({
   onNext,
   onEnd,
   ref,
-}: OnboardingPopoverProps) => {
+}: OnboardingPopupProps) => {
   const { t } = useTranslation()
 
   const theme = useTheme()
@@ -97,4 +97,4 @@ const OnboardingPopover = ({
   )
 }
 
-export default OnboardingPopover
+export default OnboardingPopup

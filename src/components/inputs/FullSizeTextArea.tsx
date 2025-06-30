@@ -1,6 +1,7 @@
 import Paper from "@mui/material/Paper"
 import { styled } from "@mui/material/styles"
 import { extendedPalette } from "../../theme/colors"
+import type { DetailedHTMLProps, HTMLAttributes } from "react"
 
 const Container = styled(Paper)(({ theme }) => ({
   width: "100%",
@@ -26,7 +27,12 @@ const BorderlessTextArea = styled("textarea")(() => ({
   fontSize: "1rem",
 }))
 
-const FullSizeTextArea = (props: any) => {
+const FullSizeTextArea = (
+  props: DetailedHTMLProps<
+    HTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
+  >,
+) => {
   return (
     <Container>
       <BorderlessTextArea {...props} />

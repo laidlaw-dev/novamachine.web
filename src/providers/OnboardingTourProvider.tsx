@@ -2,8 +2,8 @@ import { type ReactNode } from "react"
 import {
   useOnboardingTourStore,
   OnboardingTourContext,
-  type OnboardingStep,
 } from "../features/onboarding/hooks/useOnboardingTour"
+import { type OnboardingStep } from "../types"
 
 const OnboardingTourProvider = ({
   steps,
