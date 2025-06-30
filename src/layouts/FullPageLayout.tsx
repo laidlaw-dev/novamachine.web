@@ -41,6 +41,7 @@ interface FullPageLayoutProps {
 const FullPageLayout = ({ title, pageKey, children }: FullPageLayoutProps) => {
   const { t } = useTranslation()
   const { registerPage, registerElement, startTour } = useOnboardingTour()
+
   useEffect(() => {
     if (pageKey) {
       registerPage(pageKey)

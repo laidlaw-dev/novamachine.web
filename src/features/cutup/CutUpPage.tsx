@@ -15,6 +15,8 @@ import useOnboardingTour from "../onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "../../consts/elementKeys"
 import * as PAGE from "../../consts/pageKeys"
 import SnackbarMessage from "../system_feedback/components/SnackbarMessage"
+import { ErrorBoundary } from "react-error-boundary"
+import Error from "../system_feedback/components/Error"
 
 const BodyLayout = styled("div")(() => ({
   width: "100%",
@@ -93,46 +95,48 @@ const CutUpPage = () => {
   return (
     <>
       <FullPageLayout title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
-        <BodyLayout>
-          <ControlBarLayout>
-            <IconActionButton
-              ref={element => registerElement(ELEMENT.CUTUP_RESULT, element)}
-              onClick={() => setShowResult(true)}
-              disabled={cutUpResults.results.length === 0}
-              title={t("common.show_results")}
-            >
-              <AssignmentOutlined />
-            </IconActionButton>
-          </ControlBarLayout>
-          <CutUpInputForm onSubmitForm={handleSubmit} />
-        </BodyLayout>
-        <ResultDialog
-          cutUpResults={cutUpResults.results}
-          open={showResult}
-          onClose={() => setShowResult(false)}
-          onDeleteSingle={handleDeleteSingle}
-          onDeleteAll={handleDeleteAll}
-          onReorder={handleReorder}
-          onCopyToClipboard={handleCopyToClipboard}
-        />
-        <SnackbarMessage
-          message={t("system_feedback.error_process_text")}
-          severity="error"
-          open={showSnackbar === "error_process_text"}
-          onClose={() => setShowSnackbar(null)}
-        />
-        <SnackbarMessage
-          message={t("system_feedback.error_copy_to_clipboard")}
-          severity="error"
-          open={showSnackbar === "error_copy_to_clipboard"}
-          onClose={() => setShowSnackbar(null)}
-        />
-        <SnackbarMessage
-          message={t("system_feedback.success_copy_to_clipboard")}
-          severity="success"
-          open={showSnackbar === "success_copy_to_clipboard"}
-          onClose={() => setShowSnackbar(null)}
-        />
+        <ErrorBoundary fallback={<Error />}>
+          <BodyLayout>
+            <ControlBarLayout>
+              <IconActionButton
+                ref={element => registerElement(ELEMENT.CUTUP_RESULT, element)}
+                onClick={() => setShowResult(true)}
+                disabled={cutUpResults.results.length === 0}
+                title={t("common.show_results")}
+              >
+                <AssignmentOutlined />
+              </IconActionButton>
+            </ControlBarLayout>
+            <CutUpInputForm onSubmitForm={handleSubmit} />
+          </BodyLayout>
+          <ResultDialog
+            cutUpResults={cutUpResults.results}
+            open={showResult}
+            onClose={() => setShowResult(false)}
+            onDeleteSingle={handleDeleteSingle}
+            onDeleteAll={handleDeleteAll}
+            onReorder={handleReorder}
+            onCopyToClipboard={handleCopyToClipboard}
+          />
+          <SnackbarMessage
+            message={t("system_feedback.error_process_text")}
+            severity="error"
+            open={showSnackbar === "error_process_text"}
+            onClose={() => setShowSnackbar(null)}
+          />
+          <SnackbarMessage
+            message={t("system_feedback.error_copy_to_clipboard")}
+            severity="error"
+            open={showSnackbar === "error_copy_to_clipboard"}
+            onClose={() => setShowSnackbar(null)}
+          />
+          <SnackbarMessage
+            message={t("system_feedback.success_copy_to_clipboard")}
+            severity="success"
+            open={showSnackbar === "success_copy_to_clipboard"}
+            onClose={() => setShowSnackbar(null)}
+          />
+        </ErrorBoundary>
       </FullPageLayout>
     </>
   )

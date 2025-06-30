@@ -38,7 +38,6 @@ const ResultDialog = ({
   onCopyToClipboard,
 }: ResultDialogProps) => {
   const { t } = useTranslation()
-
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle>{t("cut_up.results")}</DialogTitle>

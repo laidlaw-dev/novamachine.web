@@ -1,4 +1,7 @@
 {
+  "app": {
+    "name": "The Nova Machine"
+  },
   "common": {
     "close": "Close",
     "copy_to_clipboard": "Copy to clipboard",
@@ -21,7 +24,9 @@
     "next_step": "Next"
   },
   "system_feedback": {
-    "error_general": "The application has cracked",
+    "error_general": "The application is broken",
+    "error_general_sub_1": "Do not be alarmed",
+    "error_general_sub_2": "Your reality has not been compromised",
     "error_process_text": "Could not process text",
     "error_copy_to_clipboard": "Could not copy to clipboard",
     "success_general": "Got a good thing going",
