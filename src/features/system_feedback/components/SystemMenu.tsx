@@ -29,7 +29,7 @@ const SystemMenu = ({ hasOnboardingTour }: SystemMenuProps) => {
     if (hasOnboardingTour) {
       registerElement(ELEMENT.COMMON_HELP, anchor)
     }
-  }, [anchor, hasOnboardingTour])
+  }, [anchor, hasOnboardingTour, registerElement])
 
   return (
     <div>
