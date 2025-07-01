@@ -22,6 +22,7 @@ const createSlices = (
   const cutLength = random(randomize)
   if (cutLength >= words.length) return [...slices, words.join(" ")]
   const cut = words.slice(0, cutLength)
+
   return createSlices(
     words.slice(cutLength),
     [...slices, cut.join(" ")],

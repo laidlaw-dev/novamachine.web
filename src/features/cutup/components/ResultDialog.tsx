@@ -25,6 +25,7 @@ interface ResultDialogProps {
   onDeleteSingle: (index: number) => void
   onDeleteAll: () => void
   onReorder: (keys: string[]) => void
+  onCopyToClipboard: () => void
 }
 
 const ResultDialog = ({
@@ -34,24 +35,16 @@ const ResultDialog = ({
   onDeleteSingle,
   onDeleteAll,
   onReorder,
+  onCopyToClipboard,
 }: ResultDialogProps) => {
   const { t } = useTranslation()
-
-  const handleCopyToClipboard = () => {
-    const text = cutUpResults
-      .map(item => item.text)
-      .join(" ")
-      .trim()
-    navigator.clipboard.writeText(text)
-  }
-
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle>{t("cut_up.results")}</DialogTitle>
       <ControlBarLayout>
         <IconActionButton
           title={t("common.copy_to_clipboard")}
-          onClick={handleCopyToClipboard}
+          onClick={onCopyToClipboard}
         >
           <ContentCopy />
         </IconActionButton>

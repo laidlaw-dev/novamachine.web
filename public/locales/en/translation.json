@@ -1,5 +1,10 @@
 {
+  "app": {
+    "name": "The Nova Machine",
+    "copyright": "© Andrew Laidlaw {{year}}"
+  },
   "common": {
+    "about": "About",
     "close": "Close",
     "copy_to_clipboard": "Copy to clipboard",
     "show_results": "Show results",
@@ -20,6 +25,15 @@
     "end_tour": "End tour",
     "next_step": "Next"
   },
+  "system_feedback": {
+    "error_general": "The application is broken",
+    "error_general_sub_1": "Do not be alarmed",
+    "error_general_sub_2": "Your reality has not been compromised",
+    "error_process_text": "Could not process text",
+    "error_copy_to_clipboard": "Could not copy to clipboard",
+    "success_general": "Got a good thing going",
+    "success_copy_to_clipboard": "Copied results to clipboard"
+  },
   "onboarding_cutup": {
     "intro_title": "Cut up",
     "intro_text": "The 'cut-up technique' is a method of creating new texts or artworks by cutting up existing material and rearranging the pieces. Originating with Dadaists and later popularized by William S. Burroughs and Brion Gysin, it involves taking text (or images) and literally cutting it into sections, then reassembling them in a new order to generate fresh meanings or unexpected juxtapositions.",
@@ -30,6 +44,6 @@
     "results_panel": "The results of the cutup. You can drag the pieces to rearrange them or delete individual pieces. When ready you can copy the results to the clipboard."
   },
   "onboarding_common": {
-    "help": "You can replay this tour by clicking on Help."
+    "help": "You can replay this tour by clicking 'Help' in the menu.."
   }
 }

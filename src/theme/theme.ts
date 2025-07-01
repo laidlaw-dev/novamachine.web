@@ -93,6 +93,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: colors.background[100],
+        },
+      },
+    },
     MuiSvgIcon: {
       defaultProps: {
         fontSize: "inherit",
