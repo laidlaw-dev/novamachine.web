@@ -18,7 +18,8 @@
     "cut": "Cut",
     "join": "Join",
     "length": "Length",
-    "random": "Random"
+    "random": "Random",
+    "no_results": "No results"
   },
   "onboarding": {
     "help": "Help",

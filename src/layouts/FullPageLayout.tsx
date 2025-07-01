@@ -17,6 +17,7 @@ const Body = styled("div")(({ theme }) => ({
   flex: 1,
   overflow: "hidden",
   padding: theme.spacing(1),
+  overflowY: "auto",
 }))
 
 const FullPage = styled("div")(({ theme }) => ({
