@@ -19,12 +19,11 @@ const AnimatedList = ({ onReorder, children }: AnimatedListProps) => {
       onReorder={items => onReorder(items.map(i => i.key ?? ""))}
       layoutScroll
       style={{
-        paddingRight: theme.spacing(1),
-        paddingLeft: theme.spacing(1),
+        maxHeight: "100%",
+        padding: theme.spacing(1),
         margin: 0,
         listStyleType: "none",
         overflowY: "auto",
-        height: "400px",
       }}
     >
       <AnimatePresence>

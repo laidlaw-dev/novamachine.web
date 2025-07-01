@@ -5,11 +5,7 @@ import CutUpInputForm, {
 } from "./components/CutUpInputForm"
 import { styled } from "@mui/material/styles"
 import { cutUpService } from "./services/cutUpService"
-import { useEffect, useReducer, useState } from "react"
-import ResultDialog from "./components/ResultDialog"
-import ControlBarLayout from "../../layouts/ControlBarLayout"
-import IconActionButton from "../../components/inputs/IconActionButton"
-import AssignmentOutlined from "@mui/icons-material/AssignmentOutlined"
+import { useReducer, useState } from "react"
 import { cutUpReducerFunction, initialState } from "./hooks/cutUpReducer"
 import useOnboardingTour from "../onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "../../consts/elementKeys"
@@ -17,10 +13,24 @@ import * as PAGE from "../../consts/pageKeys"
 import SnackbarMessage from "../system_feedback/components/SnackbarMessage"
 import { ErrorBoundary } from "react-error-boundary"
 import Error from "../system_feedback/components/Error"
+import CutUpResultsPanel from "./components/CutUpResultPanel"
 
-const BodyLayout = styled("div")(() => ({
+const BodyLayout = styled("div")(({ theme }) => ({
   width: "100%",
   height: "100%",
+  display: "flex",
+  gap: theme.spacing(1),
+}))
+
+const InputLayout = styled("div")(() => ({
+  flex: 2,
+  display: "flex",
+  flexDirection: "column",
+}))
+
+const ResultLayout = styled("div")(() => ({
+  height: "100%",
+  flex: 1,
   display: "flex",
   flexDirection: "column",
 }))
@@ -41,7 +51,6 @@ const CutUpPage = () => {
     cutUpReducerFunction,
     initialState,
   )
-  const [showResult, setShowResult] = useState(false)
 
   const handleSubmit = (data: CutUpInputFormFields) => {
     try {
@@ -86,38 +95,26 @@ const CutUpPage = () => {
     }
   }
 
-  useEffect(() => {
-    if (cutUpResults.results.length > 0) {
-      setShowResult(true)
-    }
-  }, [cutUpResults, setShowResult])
-
   return (
     <>
       <FullPageLayout title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
         <ErrorBoundary fallback={<Error />}>
           <BodyLayout>
-            <ControlBarLayout>
-              <IconActionButton
-                ref={element => registerElement(ELEMENT.CUTUP_RESULT, element)}
-                onClick={() => setShowResult(true)}
-                disabled={cutUpResults.results.length === 0}
-                title={t("common.show_results")}
-              >
-                <AssignmentOutlined />
-              </IconActionButton>
-            </ControlBarLayout>
-            <CutUpInputForm onSubmitForm={handleSubmit} />
+            <InputLayout>
+              <CutUpInputForm onSubmitForm={handleSubmit} />
+            </InputLayout>
+            <ResultLayout
+              ref={element => registerElement(ELEMENT.CUTUP_RESULT, element)}
+            >
+              <CutUpResultsPanel
+                cutUpResults={cutUpResults.results}
+                onDeleteSingle={handleDeleteSingle}
+                onDeleteAll={handleDeleteAll}
+                onReorder={handleReorder}
+                onCopyToClipboard={handleCopyToClipboard}
+              />
+            </ResultLayout>
           </BodyLayout>
-          <ResultDialog
-            cutUpResults={cutUpResults.results}
-            open={showResult}
-            onClose={() => setShowResult(false)}
-            onDeleteSingle={handleDeleteSingle}
-            onDeleteAll={handleDeleteAll}
-            onReorder={handleReorder}
-            onCopyToClipboard={handleCopyToClipboard}
-          />
           <SnackbarMessage
             message={t("system_feedback.error_process_text")}
             severity="error"
