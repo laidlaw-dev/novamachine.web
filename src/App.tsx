@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@mui/material/styles"
-import CutUpPage from "./features/cutup/CutUpPage"
+import CutUpPage from "./pages/CutUpPage"
 import { theme } from "./theme/theme"
 import Onboarding from "./features/onboarding/components/Onboarding"
 import { ErrorBoundary } from "react-error-boundary"
