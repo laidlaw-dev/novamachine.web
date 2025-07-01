@@ -1,13 +1,9 @@
-import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import { styled } from "@mui/material/styles"
 import FlexSpacer from "./FlexSpacer"
 import { useEffect } from "react"
 import useOnboardingTour from "../features/onboarding/hooks/useOnboardingTour"
-import Help from "@mui/icons-material/Help"
-import { useTranslation } from "react-i18next"
-import * as ELEMENT from "../consts/elementKeys"
+import SystemMenu from "../features/system_feedback/components/SystemMenu"
 
 const Title = styled("div")(({ theme }) => ({
   display: "flex",
@@ -39,8 +35,7 @@ interface FullPageLayoutProps {
 }
 
 const FullPageLayout = ({ title, pageKey, children }: FullPageLayoutProps) => {
-  const { t } = useTranslation()
-  const { registerPage, registerElement, startTour } = useOnboardingTour()
+  const { registerPage } = useOnboardingTour()
 
   useEffect(() => {
     if (pageKey) {
@@ -53,15 +48,7 @@ const FullPageLayout = ({ title, pageKey, children }: FullPageLayoutProps) => {
       <Title>
         <Typography variant="h3">{title}</Typography>
         <FlexSpacer />
-        <Tooltip title={t("onboarding.help")}>
-          <IconButton
-            ref={element => registerElement(ELEMENT.COMMON_HELP, element)}
-            color="inherit"
-            onClick={() => startTour()}
-          >
-            <Help />
-          </IconButton>
-        </Tooltip>
+        <SystemMenu hasOnboardingTour={pageKey != null} />
       </Title>
       <Body>{children}</Body>
     </FullPage>

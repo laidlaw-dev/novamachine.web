@@ -34,7 +34,7 @@ const onboardingSteps = (
     {
       key: ELEMENT.COMMON_HELP,
       text: t("onboarding_common.help"),
-      placement: "bottom",
+      placement: "left-start",
     },
   ]
 }
