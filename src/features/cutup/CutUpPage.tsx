@@ -14,13 +14,7 @@ import SnackbarMessage from "../system_feedback/components/SnackbarMessage"
 import { ErrorBoundary } from "react-error-boundary"
 import Error from "../system_feedback/components/Error"
 import CutUpResultsPanel from "./components/CutUpResultPanel"
-
-const BodyLayout = styled("div")(({ theme }) => ({
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  gap: theme.spacing(1),
-}))
+import SplitPanelResponsiveLayout from "../../layouts/SplitPanelResponsiveLayout"
 
 const InputLayout = styled("div")(() => ({
   flex: 2,
@@ -99,7 +93,7 @@ const CutUpPage = () => {
     <>
       <FullPageLayout title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
         <ErrorBoundary fallback={<Error />}>
-          <BodyLayout>
+          <SplitPanelResponsiveLayout>
             <InputLayout>
               <CutUpInputForm onSubmitForm={handleSubmit} />
             </InputLayout>
@@ -114,7 +108,7 @@ const CutUpPage = () => {
                 onCopyToClipboard={handleCopyToClipboard}
               />
             </ResultLayout>
-          </BodyLayout>
+          </SplitPanelResponsiveLayout>
           <SnackbarMessage
             message={t("system_feedback.error_process_text")}
             severity="error"

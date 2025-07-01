@@ -8,6 +8,7 @@ import type { CutUpText } from "../hooks/cutUpReducer"
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined"
 import AnimatedList from "../../../components/display/AnimatedList"
 import Typography from "@mui/material/Typography"
+import ControlBarLayoutItem from "../../../layouts/ControlBarLayoutItem"
 
 const Panel = styled("div")(({ theme }) => ({
   flex: 1,
@@ -65,16 +66,23 @@ const CutUpResultsPanel = ({
           </AnimatedList>
         )}
       </ResultsPanel>
-      <ControlBarLayout>
-        <IconActionButton
-          title={t("common.copy_to_clipboard")}
-          onClick={onCopyToClipboard}
-        >
-          <ContentCopy />
-        </IconActionButton>
-        <IconActionButton title={t("common.delete_all")} onClick={onDeleteAll}>
-          <DeleteOutlined />
-        </IconActionButton>
+      <ControlBarLayout spacing="space-around">
+        <ControlBarLayoutItem>
+          <IconActionButton
+            title={t("common.copy_to_clipboard")}
+            onClick={onCopyToClipboard}
+          >
+            <ContentCopy />
+          </IconActionButton>
+        </ControlBarLayoutItem>
+        <ControlBarLayoutItem>
+          <IconActionButton
+            title={t("common.delete_all")}
+            onClick={onDeleteAll}
+          >
+            <DeleteOutlined />
+          </IconActionButton>
+        </ControlBarLayoutItem>
       </ControlBarLayout>
     </Panel>
   )

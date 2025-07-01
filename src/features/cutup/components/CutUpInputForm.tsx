@@ -4,10 +4,10 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 import FullSizeTextArea from "../../../components/inputs/FullSizeTextArea"
 import { useTranslation } from "react-i18next"
 import ControlBarLayout from "../../../layouts/ControlBarLayout"
-import LabelledControlPanelLayout from "../../../layouts/LabelledControlPanelLayout"
-import LabelledSlider from "../../../components/inputs/LabelledSlider"
 import useOnboardingTour from "../../onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "../../../consts/elementKeys"
+import ControlBarLayoutItem from "../../../layouts/ControlBarLayoutItem"
+import CutUpLengthControls from "./CutUpLengthControls"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -22,10 +22,6 @@ const TextInput = styled("div")(({ theme }) => ({
   maxHeight: "100%",
   padding: theme.spacing(1),
   overflowY: "auto",
-}))
-
-const Spacer = styled("div")(() => ({
-  flex: 1,
 }))
 
 export interface CutUpInputFormFields {
@@ -75,90 +71,29 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
         />
       </TextInput>
       <ControlBarLayout>
-        <LabelledControlPanelLayout
-          ref={element => registerElement(ELEMENT.CUTUP_CUT, element)}
+        <CutUpLengthControls
           label={t("cut_up.cut")}
-          width="300px"
-          color="background"
-        >
-          <Controller
-            name="cutLength"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <LabelledSlider
-                label={t("cut_up.length")}
-                step={1}
-                marks
-                min={1}
-                max={10}
-                {...field}
-                className="cut"
-              />
-            )}
-          />
-          <Controller
-            name="cutRandomize"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <LabelledSlider
-                label={t("cut_up.random")}
-                step={1}
-                marks
-                min={0}
-                max={10}
-                {...field}
-              />
-            )}
-          />
-        </LabelledControlPanelLayout>
-        <LabelledControlPanelLayout
-          ref={element => registerElement(ELEMENT.CUTUP_JOIN, element)}
+          lengthName="cutLength"
+          randomizeName="cutRandomize"
+          control={control}
+          ref={element => registerElement(ELEMENT.CUTUP_CUT, element)}
+        />
+        <CutUpLengthControls
           label={t("cut_up.join")}
-          width="300px"
-          color="background"
-        >
-          <Controller
-            name="joinLength"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <LabelledSlider
-                label={t("cut_up.length")}
-                step={1}
-                marks
-                min={1}
-                max={10}
-                {...field}
-                className="join"
-              />
-            )}
-          />
-          <Controller
-            name="joinRandomize"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <LabelledSlider
-                label={t("cut_up.random")}
-                step={1}
-                marks
-                min={0}
-                max={10}
-                {...field}
-              />
-            )}
-          />
-        </LabelledControlPanelLayout>
-        <Spacer />
-        <Button
-          type="submit"
-          size="large"
-          ref={element => registerElement(ELEMENT.CUTUP_CUTUP, element)}
-        >
-          {t("cut_up.action")}
-        </Button>
+          lengthName="joinLength"
+          randomizeName="joinRandomize"
+          control={control}
+          ref={element => registerElement(ELEMENT.CUTUP_JOIN, element)}
+        />
+        <ControlBarLayoutItem size="small">
+          <Button
+            type="submit"
+            size="large"
+            ref={element => registerElement(ELEMENT.CUTUP_CUTUP, element)}
+          >
+            {t("cut_up.action")}
+          </Button>
+        </ControlBarLayoutItem>
       </ControlBarLayout>
     </FormLayout>
   )
