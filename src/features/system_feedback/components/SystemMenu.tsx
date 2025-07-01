@@ -26,8 +26,10 @@ const SystemMenu = ({ hasOnboardingTour }: SystemMenuProps) => {
   const [aboutDialogOpen, setAboutDialogOpen] = useState<boolean>(false)
 
   useEffect(() => {
-    registerElement(ELEMENT.COMMON_HELP, anchor)
-  }, [anchor])
+    if (hasOnboardingTour) {
+      registerElement(ELEMENT.COMMON_HELP, anchor)
+    }
+  }, [anchor, hasOnboardingTour])
 
   return (
     <div>
