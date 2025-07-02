@@ -1,4 +1,4 @@
-import { cleanText, splitText } from "../../src/utils/text"
+import { cleanText, splitText } from "./text"
 
 describe("cleanText", () => {
   test("when text is null, returns empty string", () => {

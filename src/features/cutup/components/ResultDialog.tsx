@@ -8,7 +8,7 @@ import ContentCopy from "@mui/icons-material/ContentCopy"
 import DialogActionButton from "../../../components/inputs/DialogActionButton"
 import IconActionButton from "../../../components/inputs/IconActionButton"
 import CutUpResult from "./CutUpResult"
-import type { CutUpText } from "../hooks/cutUpReducer"
+import type { CutUpText } from "../hooks/cutUpReducerFunction"
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined"
 import AnimatedList from "../../../components/display/AnimatedList"
 

@@ -1,7 +1,4 @@
-import {
-  cutUpReducerFunction,
-  initialState,
-} from "../../../src/features/cutup/hooks/cutUpReducer"
+import { cutUpReducerFunction, initialState } from "./cutUpReducerFunction"
 
 describe("cutUpReducer", () => {
   describe("Add", () => {

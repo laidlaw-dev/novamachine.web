@@ -1,4 +1,4 @@
-import { shuffle } from "../../src/utils/shuffle"
+import { shuffle } from "./shuffle"
 
 describe("shuffle", () => {
   test("when array is empty, returns empty array", () => {

@@ -1,4 +1,4 @@
-import { random } from "../../src/utils/random"
+import { random } from "./random"
 
 let x: () => number = () => 0
 describe("random", () => {
