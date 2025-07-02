@@ -2,18 +2,16 @@ import { type ReactNode } from "react"
 import OnboardingPopup from "./OnboardingPopup"
 import OnboardingTourProvider from "../../../providers/OnboardingTourProvider"
 import useOnboardingTour from "../hooks/useOnboardingTour"
-import { useTranslation } from "react-i18next"
-import onboardingSteps from "../../../onboardingSteps"
+import type { OnboardingStep } from "../../../types"
 
 interface OnboardingProps {
+  steps: OnboardingStep[]
   children: ReactNode | ReactNode[]
 }
 
-const Onboarding = ({ children }: OnboardingProps) => {
-  const { t } = useTranslation()
-
+const Onboarding = ({ steps, children }: OnboardingProps) => {
   return (
-    <OnboardingTourProvider steps={onboardingSteps(t)}>
+    <OnboardingTourProvider steps={steps}>
       {children}
       <PopoverWrapper />
     </OnboardingTourProvider>
