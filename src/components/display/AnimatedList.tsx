@@ -1,6 +1,7 @@
 import { useTheme } from "@mui/material/styles"
 import { AnimatePresence, motion, Reorder } from "motion/react"
 import { type ReactElement } from "react"
+import { durations } from "../../theme/durations"
 
 interface AnimatedListProps {
   onReorder: (keys: string[]) => void
@@ -38,8 +39,11 @@ const AnimatedList = ({ onReorder, children }: AnimatedListProps) => {
             }}
             exit={{ opacity: 0, height: 0 }}
             transition={{
-              default: { duration: 0.25 },
-              height: { duration: 0.25, delay: 0.25 },
+              default: { duration: durations.listItems / 1000 },
+              height: {
+                duration: durations.listItems / 1000,
+                delay: durations.listItems / 1000,
+              },
             }}
             style={{
               cursor: "grab",

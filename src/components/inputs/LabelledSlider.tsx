@@ -18,7 +18,9 @@ interface LabelledSliderProps extends SliderOwnProps<number> {
 const LabelledSlider = ({ label, ...sliderProps }: LabelledSliderProps) => {
   return (
     <Container>
-      <Typography variant="caption">{label}</Typography>
+      <Typography variant="caption">
+        <label>{label}</label>
+      </Typography>
       <Slider {...sliderProps} />
     </Container>
   )

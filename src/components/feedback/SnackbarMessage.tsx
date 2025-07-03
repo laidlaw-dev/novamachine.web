@@ -1,5 +1,5 @@
 import Alert, { type AlertColor } from "@mui/material/Alert"
-import { durations } from "../../../theme/durations"
+import { durations } from "../../theme/durations"
 import Snackbar from "@mui/material/Snackbar"
 
 interface SnackbarMessageProps {

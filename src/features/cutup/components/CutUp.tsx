@@ -9,7 +9,7 @@ import {
 } from "../hooks/cutUpReducerFunction"
 import useOnboardingTour from "../../onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "../../../consts/elementKeys"
-import SnackbarMessage from "../../system/components/SnackbarMessage"
+import SnackbarMessage from "../../../components/feedback/SnackbarMessage"
 import CutUpResultsPanel from "./CutUpResultPanel"
 import SplitPanelResponsiveLayout from "../../../layouts/SplitPanelResponsiveLayout"
 

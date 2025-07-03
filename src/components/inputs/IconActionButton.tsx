@@ -3,7 +3,6 @@ import Tooltip from "@mui/material/Tooltip"
 
 const IconActionButton = (props: IconButtonProps) => {
   const { title, disabled, ...rest } = props
-
   if (title != null && !disabled) {
     return (
       <Tooltip title={title}>

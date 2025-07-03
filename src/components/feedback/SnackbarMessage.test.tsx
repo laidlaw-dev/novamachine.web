@@ -1,6 +1,6 @@
 import { render, within, fireEvent, act } from "@testing-library/react"
 import SnackbarMessage from "./SnackbarMessage"
-import { durations } from "../../../theme/durations"
+import { durations } from "../../theme/durations"
 
 const mock_onClose = vi.fn()
 
