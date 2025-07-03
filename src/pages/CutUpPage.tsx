@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next"
 import FullPageLayout from "../layouts/FullPageLayout"
 import * as PAGE from "../consts/pageKeys"
 import { ErrorBoundary } from "react-error-boundary"
-import Error from "../features/system_feedback/components/Error"
+import Error from "../features/system/components/Error"
 import CutUp from "../features/cutup/components/CutUp"
 
 const CutUpPage = () => {

@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles"
 import FlexSpacer from "./FlexSpacer"
 import { useEffect } from "react"
 import useOnboardingTour from "../features/onboarding/hooks/useOnboardingTour"
-import SystemMenu from "../features/system_feedback/components/SystemMenu"
+import SystemMenu from "../features/system/components/SystemMenu"
 
 const Title = styled("div")(({ theme }) => ({
   display: "flex",

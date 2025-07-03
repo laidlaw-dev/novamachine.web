@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles"
-import Error from "../features/system_feedback/components/Error"
+import Error from "../features/system/components/Error"
 
 const FullPage = styled("div")(() => ({
   width: "100vw",
