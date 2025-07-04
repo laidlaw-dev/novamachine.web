@@ -3,7 +3,7 @@ import FullPageLayout from "../layouts/FullPageLayout"
 import * as PAGE from "../consts/pageKeys"
 import { ErrorBoundary } from "react-error-boundary"
 import Error from "../features/system/components/Error"
-import CutUp from "../features/cutup/components/CutUp"
+import CutUp from "../features/cutUp/components/CutUp"
 
 const CutUpPage = () => {
   const { t } = useTranslation()

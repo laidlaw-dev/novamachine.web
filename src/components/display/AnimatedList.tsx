@@ -3,7 +3,7 @@ import { AnimatePresence, motion, Reorder } from "motion/react"
 import { type ReactElement } from "react"
 import { durations } from "../../theme/durations"
 
-interface AnimatedListProps {
+export interface AnimatedListProps {
   onReorder: (keys: string[]) => void
   children: ReactElement[]
 }

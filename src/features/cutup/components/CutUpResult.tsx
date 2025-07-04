@@ -22,7 +22,7 @@ interface CutUpResultProps {
 
 const CutUpResult = ({ text, onDelete }: CutUpResultProps) => {
   return (
-    <CupUpResultPaper>
+    <CupUpResultPaper data-testid={`result_${text.index}`}>
       <TextContainer variant="mono">{text.text}</TextContainer>
       <IconActionButton onClick={() => onDelete(text.index)}>
         <DeleteOutlined />

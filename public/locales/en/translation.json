@@ -18,8 +18,9 @@
     "cut": "Cut",
     "join": "Join",
     "length": "Length",
-    "random": "Random",
-    "no_results": "No results"
+    "random": "Randomize",
+    "no_results": "No results",
+    "validation_no_text": "Cut up requires some text"
   },
   "onboarding": {
     "help": "Help",

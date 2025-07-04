@@ -1,4 +1,4 @@
-import { render, fireEvent, within } from "@testing-library/react"
+import { render, fireEvent, within, act } from "@testing-library/react"
 import * as ELEMENT from "../../../consts/elementKeys"
 import { mock_translate } from "../../../_test-helpers/mocks"
 import SystemMenu from "./SystemMenu"
@@ -69,7 +69,7 @@ describe("SystemMenu", () => {
     fireEvent.click(about)
     expect(getByRole("dialog")).toBeInTheDocument()
   })
-  test("clicking on the dialog 'close' hides the dialog", async () => {
+  test("clicking on the dialog 'close' hides the dialog", () => {
     const { getByRole, queryByRole } = render(
       <SystemMenu hasOnboardingTour={true} />,
     )
@@ -86,7 +86,7 @@ describe("SystemMenu", () => {
 
     vi.useFakeTimers()
     fireEvent.click(close)
-    await vi.advanceTimersByTimeAsync(2000)
+    act(() => vi.advanceTimersByTime(2000))
     expect(queryByRole("dialog")).not.toBeInTheDocument()
     vi.useRealTimers()
   })
