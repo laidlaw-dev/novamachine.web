@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles"
 import Typography from "@mui/material/Typography"
 import IconActionButton from "../../../components/inputs/IconActionButton"
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined"
-import type { CutUpText } from "../hooks/cutUpReducer"
+import type { CutUpText } from "../hooks/cutUpReducerFunction"
 
 const CupUpResultPaper = styled(Paper)(({ theme }) => ({
   display: "flex",
@@ -22,7 +22,7 @@ interface CutUpResultProps {
 
 const CutUpResult = ({ text, onDelete }: CutUpResultProps) => {
   return (
-    <CupUpResultPaper>
+    <CupUpResultPaper data-testid={`result_${text.index}`}>
       <TextContainer variant="mono">{text.text}</TextContainer>
       <IconActionButton onClick={() => onDelete(text.index)}>
         <DeleteOutlined />

@@ -1,6 +1,6 @@
-import { cutUpService } from "../../../src/features/cutup/services/cutUpService"
+import { cutUpService } from "./cutUpService"
 
-vi.mock("../../../src/utils/shuffle", () => ({
+vi.mock("../../../utils/shuffle", () => ({
   shuffle: (array: string[]) => array.reverse(),
 }))
 

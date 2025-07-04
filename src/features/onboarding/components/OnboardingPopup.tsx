@@ -1,12 +1,57 @@
 import { styled, useTheme } from "@mui/material/styles"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import Paper from "@mui/material/Paper"
 import PopperWithArrow from "../../../components/display/PopperWithArrow"
 import { type PopperPlacementType } from "@mui/material"
 import type { Ref } from "react"
+import Paper from "@mui/material/Paper"
+import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
 import { useTranslation } from "react-i18next"
 import FlexSpacer from "../../../layouts/FlexSpacer"
+
+interface OnboardingPopupProps {
+  targetElement: Element
+  title?: string
+  text: string
+  stepNumber: number
+  totalSteps: number
+  placement?: PopperPlacementType
+  onNext: () => void
+  onEnd: () => void
+  ref?: Ref<HTMLDivElement>
+}
+
+const OnboardingPopup = ({
+  targetElement,
+  title,
+  text,
+  stepNumber,
+  totalSteps,
+  placement,
+  onNext,
+  onEnd,
+  ref,
+}: OnboardingPopupProps) => {
+  const theme = useTheme()
+
+  return (
+    <PopperWithArrow
+      open={true}
+      anchorEl={targetElement}
+      arrowColor={theme.palette.info.main}
+      placement={placement}
+      ref={ref}
+    >
+      <OnboardingPopupContent
+        title={title}
+        text={text}
+        stepNumber={stepNumber}
+        totalSteps={totalSteps}
+        onNext={onNext}
+        onEnd={onEnd}
+      />
+    </PopperWithArrow>
+  )
+}
 
 const PopoverContainer = styled(Paper)(({ theme }) => ({
   width: "300px",
@@ -36,64 +81,48 @@ const PopoverButtons = styled("div")(() => ({
   justifyContent: "space-between",
 }))
 
-interface OnboardingPopupProps {
-  targetElement: Element
+interface OnboardingPopupContentProps {
   title?: string
   text: string
   stepNumber: number
   totalSteps: number
-  placement?: PopperPlacementType
   onNext: () => void
   onEnd: () => void
-  ref?: Ref<HTMLDivElement>
 }
 
-const OnboardingPopup = ({
-  targetElement,
+const OnboardingPopupContent = ({
   title,
   text,
   stepNumber,
   totalSteps,
-  placement,
   onNext,
   onEnd,
-  ref,
-}: OnboardingPopupProps) => {
+}: OnboardingPopupContentProps) => {
   const { t } = useTranslation()
 
-  const theme = useTheme()
-
   return (
-    <PopperWithArrow
-      open={true}
-      anchorEl={targetElement}
-      arrowColor={theme.palette.info.main}
-      placement={placement}
-      ref={ref}
-    >
-      <PopoverContainer>
-        <PopoverTitle>
-          {title && <Typography variant="h6">{title}</Typography>}
-          <FlexSpacer />
-          <Typography variant="body2">
-            {stepNumber} / {totalSteps}
-          </Typography>
-        </PopoverTitle>
-        <PopoverBody>
-          <Typography variant="body1">{text}</Typography>
-        </PopoverBody>
-        <PopoverButtons>
-          <Button variant="text" color="inherit" onClick={onEnd}>
-            {t("onboarding.end_tour")}
+    <PopoverContainer>
+      <PopoverTitle>
+        {title && <Typography variant="h6">{title}</Typography>}
+        <FlexSpacer />
+        <Typography variant="body2">
+          {stepNumber} / {totalSteps}
+        </Typography>
+      </PopoverTitle>
+      <PopoverBody>
+        <Typography variant="body1">{text}</Typography>
+      </PopoverBody>
+      <PopoverButtons>
+        <Button variant="text" color="inherit" onClick={onEnd}>
+          {t("onboarding.end_tour")}
+        </Button>
+        {stepNumber < totalSteps && (
+          <Button variant="text" color="inherit" onClick={onNext}>
+            {t("onboarding.next_step")}
           </Button>
-          {stepNumber < totalSteps && (
-            <Button variant="text" color="inherit" onClick={onNext}>
-              {t("onboarding.next_step")}
-            </Button>
-          )}
-        </PopoverButtons>
-      </PopoverContainer>
-    </PopperWithArrow>
+        )}
+      </PopoverButtons>
+    </PopoverContainer>
   )
 }
 

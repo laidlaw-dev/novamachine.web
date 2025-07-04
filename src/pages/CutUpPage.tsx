@@ -1,20 +1,20 @@
 import { useTranslation } from "react-i18next"
-import FullPageLayout from "../layouts/FullPageLayout"
+import FullPageScaffold from "../components/display/FullPageScaffold"
 import * as PAGE from "../consts/pageKeys"
 import { ErrorBoundary } from "react-error-boundary"
-import Error from "../features/system_feedback/components/Error"
-import CutUp from "../features/cutup/components/CutUp"
+import Error from "../features/system/components/Error"
+import CutUp from "../features/cutUp/components/CutUp"
 
 const CutUpPage = () => {
   const { t } = useTranslation()
 
   return (
     <>
-      <FullPageLayout title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
+      <FullPageScaffold title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
         <ErrorBoundary fallback={<Error />}>
           <CutUp />
         </ErrorBoundary>
-      </FullPageLayout>
+      </FullPageScaffold>
     </>
   )
 }

@@ -48,7 +48,7 @@ const Error = () => {
   const { t } = useTranslation()
 
   return (
-    <ErrorContainer>
+    <ErrorContainer role="alert">
       <ErrorTextContainer>
         <ErrorImageContainer>
           <img src="nvm_icon.svg" />

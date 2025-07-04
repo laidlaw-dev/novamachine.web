@@ -1,9 +1,9 @@
-import { useOnboardingTourStore } from "../../../../src/features/onboarding/hooks/useOnboardingTour"
+import { useOnboardingTourStore } from "./useOnboardingTour"
 import { renderHook, act } from "@testing-library/react"
 
 const mock_hasVisitedPage = vi.fn()
 const mock_setVisitedPage = vi.fn()
-vi.mock("../../../../src/features/onboarding/utils/storage", () => ({
+vi.mock("../utils/storage", () => ({
   hasVisitedPage: (page: string) => mock_hasVisitedPage(page),
   setVisitedPage: (page: string) => mock_setVisitedPage(page),
 }))

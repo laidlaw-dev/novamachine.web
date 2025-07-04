@@ -2,7 +2,7 @@ import {
   VISITED_PAGE_STORAGE_KEY,
   hasVisitedPage,
   setVisitedPage,
-} from "../../../../src/features/onboarding/utils/storage"
+} from "./storage"
 
 describe("hasVisitedPage", () => {
   beforeEach(() => localStorage.removeItem(VISITED_PAGE_STORAGE_KEY))

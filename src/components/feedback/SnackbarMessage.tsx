@@ -1,4 +1,5 @@
 import Alert, { type AlertColor } from "@mui/material/Alert"
+import { durations } from "../../theme/durations"
 import Snackbar from "@mui/material/Snackbar"
 
 interface SnackbarMessageProps {
@@ -15,7 +16,11 @@ const SnackbarMessage = ({
   onClose,
 }: SnackbarMessageProps) => {
   return (
-    <Snackbar open={open} onClose={onClose} autoHideDuration={5000}>
+    <Snackbar
+      open={open}
+      onClose={onClose}
+      autoHideDuration={durations.snackbar}
+    >
       <Alert onClose={onClose} severity={severity} variant="filled">
         {message}
       </Alert>

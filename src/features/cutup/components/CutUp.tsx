@@ -3,10 +3,13 @@ import CutUpInputForm, { type CutUpInputFormFields } from "./CutUpInputForm"
 import { styled } from "@mui/material/styles"
 import { cutUpService } from "../services/cutUpService"
 import { useReducer, useState } from "react"
-import { cutUpReducerFunction, initialState } from "../hooks/cutUpReducer"
+import {
+  cutUpReducerFunction,
+  initialState,
+} from "../hooks/cutUpReducerFunction"
 import useOnboardingTour from "../../onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "../../../consts/elementKeys"
-import SnackbarMessage from "../../system_feedback/components/SnackbarMessage"
+import SnackbarMessage from "../../../components/feedback/SnackbarMessage"
 import CutUpResultsPanel from "./CutUpResultPanel"
 import SplitPanelResponsiveLayout from "../../../layouts/SplitPanelResponsiveLayout"
 

@@ -1,13 +1,23 @@
 import Button from "@mui/material/Button"
 import { styled } from "@mui/material/styles"
-import { Controller, useForm, type SubmitHandler } from "react-hook-form"
+import {
+  Controller,
+  useForm,
+  type Control,
+  type FieldValues,
+  type Path,
+  type SubmitHandler,
+} from "react-hook-form"
 import FullSizeTextArea from "../../../components/inputs/FullSizeTextArea"
 import { useTranslation } from "react-i18next"
 import ControlBarLayout from "../../../layouts/ControlBarLayout"
+import ControlBarLayoutItem from "../../../layouts/ControlBarLayoutItem"
 import useOnboardingTour from "../../onboarding/hooks/useOnboardingTour"
 import * as ELEMENT from "../../../consts/elementKeys"
-import ControlBarLayoutItem from "../../../layouts/ControlBarLayoutItem"
-import CutUpLengthControls from "./CutUpLengthControls"
+import LabelledControlPanelLayout from "../../../layouts/LabelledControlPanelLayout"
+import type { Ref } from "react"
+import Slider from "@mui/material/Slider"
+import FormControlLabel from "@mui/material/FormControlLabel"
 
 const FormLayout = styled("form")(({ theme }) => ({
   flex: 1,
@@ -40,7 +50,11 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
   const { t } = useTranslation()
   const { registerElement } = useOnboardingTour()
 
-  const { handleSubmit, control } = useForm<CutUpInputFormFields>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<CutUpInputFormFields>({
     defaultValues: {
       inputText: "",
       cutLength: 2,
@@ -62,12 +76,22 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
           name="inputText"
           control={control}
           rules={{ required: true }}
-          render={({ field }) => (
-            <FullSizeTextArea
-              {...field}
-              placeholder={t("cut_up.enter_source_text")}
-            />
-          )}
+          render={({ field }) => {
+            return (
+              <>
+                <FullSizeTextArea
+                  {...field}
+                  placeholder={t("cut_up.enter_source_text")}
+                  errorMessage={
+                    errors.inputText?.type === "required"
+                      ? t("cut_up.validation_no_text")
+                      : undefined
+                  }
+                />
+                {}
+              </>
+            )
+          }}
         />
       </TextInput>
       <ControlBarLayout>
@@ -96,6 +120,79 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
         </ControlBarLayoutItem>
       </ControlBarLayout>
     </FormLayout>
+  )
+}
+
+interface CutUpLengthControlsProps<FV extends FieldValues> {
+  label: string
+  lengthName: Path<FV>
+  randomizeName: Path<FV>
+  /* eslint-disable @typescript-eslint/no-explicit-any*/
+  control: Control<FV, any, FV>
+  ref?: Ref<HTMLDivElement>
+}
+
+const CutUpLengthControls = <FV extends FieldValues>({
+  label,
+  lengthName,
+  randomizeName,
+  control,
+  ref,
+}: CutUpLengthControlsProps<FV>) => {
+  const { t } = useTranslation()
+
+  return (
+    <ControlBarLayoutItem size="medium">
+      <LabelledControlPanelLayout
+        ref={ref}
+        label={label}
+        width="100%"
+        color="background"
+      >
+        <Controller
+          name={lengthName}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <FormControlLabel
+              label={t("cut_up.length")}
+              control={
+                <Slider
+                  data-testid={lengthName}
+                  step={1}
+                  marks
+                  min={1}
+                  max={10}
+                  {...field}
+                />
+              }
+              labelPlacement="bottom"
+            />
+          )}
+        />
+        <Controller
+          name={randomizeName}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <FormControlLabel
+              label={t("cut_up.random")}
+              control={
+                <Slider
+                  data-testid={randomizeName}
+                  step={1}
+                  marks
+                  min={0}
+                  max={10}
+                  {...field}
+                />
+              }
+              labelPlacement="bottom"
+            />
+          )}
+        />
+      </LabelledControlPanelLayout>
+    </ControlBarLayoutItem>
   )
 }
 
