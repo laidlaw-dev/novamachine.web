@@ -21,7 +21,7 @@ vi.mock("../hooks/useOnboardingTour", async importOriginal => {
 
 const mock_OnboardingPopup = vi.fn()
 vi.mock("./OnboardingPopup", () => ({
-  default: (props: Object) => mock_OnboardingPopup(props),
+  default: (props: object) => mock_OnboardingPopup(props),
 }))
 
 describe("Onboaring", () => {

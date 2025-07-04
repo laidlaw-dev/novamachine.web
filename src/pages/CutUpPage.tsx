@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import FullPageLayout from "../layouts/FullPageLayout"
+import FullPageScaffold from "../components/display/FullPageScaffold"
 import * as PAGE from "../consts/pageKeys"
 import { ErrorBoundary } from "react-error-boundary"
 import Error from "../features/system/components/Error"
@@ -10,11 +10,11 @@ const CutUpPage = () => {
 
   return (
     <>
-      <FullPageLayout title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
+      <FullPageScaffold title={t("cut_up.title")} pageKey={PAGE.CUTUP}>
         <ErrorBoundary fallback={<Error />}>
           <CutUp />
         </ErrorBoundary>
-      </FullPageLayout>
+      </FullPageScaffold>
     </>
   )
 }

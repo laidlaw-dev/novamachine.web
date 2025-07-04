@@ -1,11 +1,11 @@
 import Typography from "@mui/material/Typography"
 import { styled } from "@mui/material/styles"
-import FlexSpacer from "./FlexSpacer"
+import FlexSpacer from "../../layouts/FlexSpacer"
 import { useEffect } from "react"
-import useOnboardingTour from "../features/onboarding/hooks/useOnboardingTour"
-import SystemMenu from "../features/system/components/SystemMenu"
+import useOnboardingTour from "../../features/onboarding/hooks/useOnboardingTour"
+import SystemMenu from "../../features/system/components/SystemMenu"
 
-const Title = styled("div")(({ theme }) => ({
+const Title = styled("header")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(1),
@@ -20,7 +20,7 @@ const Body = styled("div")(({ theme }) => ({
   overflowY: "auto",
 }))
 
-const FullPage = styled("div")(({ theme }) => ({
+const FullPageLayout = styled("div")(({ theme }) => ({
   width: "100vw",
   height: "100vh",
   display: "flex",
@@ -29,13 +29,17 @@ const FullPage = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }))
 
-interface FullPageLayoutProps {
+interface FullPageScaffoldProps {
   title: string
   pageKey?: string
   children: React.ReactNode
 }
 
-const FullPageLayout = ({ title, pageKey, children }: FullPageLayoutProps) => {
+const FullPageScaffold = ({
+  title,
+  pageKey,
+  children,
+}: FullPageScaffoldProps) => {
   const { registerPage } = useOnboardingTour()
 
   useEffect(() => {
@@ -45,15 +49,15 @@ const FullPageLayout = ({ title, pageKey, children }: FullPageLayoutProps) => {
   }, [pageKey, registerPage])
 
   return (
-    <FullPage>
+    <FullPageLayout>
       <Title>
-        <Typography variant="h3">{title}</Typography>
+        <Typography variant="h4">{title}</Typography>
         <FlexSpacer />
         <SystemMenu hasOnboardingTour={pageKey != null} />
       </Title>
       <Body>{children}</Body>
-    </FullPage>
+    </FullPageLayout>
   )
 }
 
-export default FullPageLayout
+export default FullPageScaffold
