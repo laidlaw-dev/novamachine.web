@@ -25,7 +25,7 @@ const OuterContainer = styled("div")(() => ({
 
 const BorderlessTextArea = styled("textarea")(() => ({
   width: "100%",
-  flex: "100%",
+  height: "100%",
   resize: "none",
   outline: "none",
   fontFamily: "Cousine",
