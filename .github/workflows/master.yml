@@ -31,3 +31,9 @@ jobs:
 
       - name: Unit Tests
         run: npm run test
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: dist
