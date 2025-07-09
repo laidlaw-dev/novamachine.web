@@ -1,4 +1,4 @@
-export const VISITED_PAGE_STORAGE_KEY = "pages_visted"
+export const VISITED_PAGE_STORAGE_KEY = "pages_visited"
 
 export const hasVisitedPage = (pageKey: string): boolean => {
   const visitedPagesJson = localStorage.getItem(VISITED_PAGE_STORAGE_KEY)

@@ -40,6 +40,7 @@ const OnboardingPopup = ({
       arrowColor={theme.palette.info.main}
       placement={placement}
       ref={ref}
+      aria-label={title}
     >
       <OnboardingPopupContent
         title={title}
@@ -106,7 +107,7 @@ const OnboardingPopupContent = ({
         {title && <Typography variant="h6">{title}</Typography>}
         <FlexSpacer />
         <Typography variant="body2">
-          {stepNumber} / {totalSteps}
+          {stepNumber}/{totalSteps}
         </Typography>
       </PopoverTitle>
       <PopoverBody>
