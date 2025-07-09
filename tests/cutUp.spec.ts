@@ -61,10 +61,10 @@ test("clicking on cut up when source text is empty displays validation error", a
 test("clicking on cut up produces results", async ({ page }) => {
   await page.goto("/")
 
-  await setSliderValue(page, await page.getByTestId("cutLength"), 2)
-  await setSliderValue(page, await page.getByTestId("cutRandomize"), 0)
-  await setSliderValue(page, await page.getByTestId("joinLength"), 1)
-  await setSliderValue(page, await page.getByTestId("joinRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("cutLength"), 2)
+  await setSliderValue(page, page.getByTestId("cutRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("joinLength"), 1)
+  await setSliderValue(page, page.getByTestId("joinRandomize"), 0)
 
   await page
     .getByRole("textbox")
@@ -88,10 +88,10 @@ test("adjusting sliders and clicking on cut up produces results", async ({
 }) => {
   await page.goto("/")
 
-  await setSliderValue(page, await page.getByTestId("cutLength"), 3)
-  await setSliderValue(page, await page.getByTestId("cutRandomize"), 0)
-  await setSliderValue(page, await page.getByTestId("joinLength"), 1)
-  await setSliderValue(page, await page.getByTestId("joinRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("cutLength"), 3)
+  await setSliderValue(page, page.getByTestId("cutRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("joinLength"), 1)
+  await setSliderValue(page, page.getByTestId("joinRandomize"), 0)
 
   await page
     .getByRole("textbox")
@@ -112,19 +112,19 @@ test("adjusting sliders and clicking on cut up produces results", async ({
 test("clicking on cut up twice adds to results", async ({ page }) => {
   await page.goto("/")
 
-  await setSliderValue(page, await page.getByTestId("cutLength"), 2)
-  await setSliderValue(page, await page.getByTestId("cutRandomize"), 0)
-  await setSliderValue(page, await page.getByTestId("joinLength"), 1)
-  await setSliderValue(page, await page.getByTestId("joinRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("cutLength"), 2)
+  await setSliderValue(page, page.getByTestId("cutRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("joinLength"), 1)
+  await setSliderValue(page, page.getByTestId("joinRandomize"), 0)
 
-  await await page
+  await page
     .getByRole("textbox")
     .fill("Aaa Bbb Ccc Ddd Eee Fff Ggg Hhh Iii Jjj")
 
   await page.getByRole("button", { name: "Cut up" }).click()
   await page.getByRole("button", { name: "Cut up" }).click()
 
-  const results = await page.getByRole("region", { name: "Cut up results" })
+  const results = page.getByRole("region", { name: "Cut up results" })
 
   await expect(results.getByText("aaa bbb")).toHaveCount(2)
   await expect(results.getByText("ccc ddd")).toHaveCount(2)
@@ -138,10 +138,10 @@ test("clicking on cut up twice adds to results", async ({ page }) => {
 test("dragging a result reorders results", async ({ page }) => {
   await page.goto("/")
 
-  await setSliderValue(page, await page.getByTestId("cutLength"), 2)
-  await setSliderValue(page, await page.getByTestId("cutRandomize"), 0)
-  await setSliderValue(page, await page.getByTestId("joinLength"), 1)
-  await setSliderValue(page, await page.getByTestId("joinRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("cutLength"), 2)
+  await setSliderValue(page, page.getByTestId("cutRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("joinLength"), 1)
+  await setSliderValue(page, page.getByTestId("joinRandomize"), 0)
 
   await page
     .getByRole("textbox")
@@ -189,10 +189,10 @@ test("clicking on delete for one result deletes that result", async ({
 }) => {
   await page.goto("/")
 
-  await setSliderValue(page, await page.getByTestId("cutLength"), 2)
-  await setSliderValue(page, await page.getByTestId("cutRandomize"), 0)
-  await setSliderValue(page, await page.getByTestId("joinLength"), 1)
-  await setSliderValue(page, await page.getByTestId("joinRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("cutLength"), 2)
+  await setSliderValue(page, page.getByTestId("cutRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("joinLength"), 1)
+  await setSliderValue(page, page.getByTestId("joinRandomize"), 0)
 
   await page
     .getByRole("textbox")
@@ -200,9 +200,9 @@ test("clicking on delete for one result deletes that result", async ({
 
   await page.getByRole("button", { name: "Cut up" }).click()
 
-  const results = await page.getByRole("region", { name: "Cut up results" })
+  const results = page.getByRole("region", { name: "Cut up results" })
 
-  const li = await results.getByRole("listitem").filter({
+  const li = results.getByRole("listitem").filter({
     has: page.getByText("aaa bbb"),
   })
 
@@ -220,10 +220,10 @@ test("clicking on delete for one result deletes that result", async ({
 test("clicking on delete all deletes all results", async ({ page }) => {
   await page.goto("/")
 
-  await setSliderValue(page, await page.getByTestId("cutLength"), 2)
-  await setSliderValue(page, await page.getByTestId("cutRandomize"), 0)
-  await setSliderValue(page, await page.getByTestId("joinLength"), 1)
-  await setSliderValue(page, await page.getByTestId("joinRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("cutLength"), 2)
+  await setSliderValue(page, page.getByTestId("cutRandomize"), 0)
+  await setSliderValue(page, page.getByTestId("joinLength"), 1)
+  await setSliderValue(page, page.getByTestId("joinRandomize"), 0)
 
   await page
     .getByRole("textbox")

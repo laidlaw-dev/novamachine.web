@@ -31,7 +31,7 @@ describe("OnboardingPopup", () => {
     )
     expect(getByText("test_title")).toBeInTheDocument()
     expect(getByText("test_text")).toBeInTheDocument()
-    expect(getByText("2 / 4")).toBeInTheDocument()
+    expect(getByText("2/4")).toBeInTheDocument()
     expect(
       getByRole("button", { name: "onboarding.end_tour" }),
     ).toBeInTheDocument()
@@ -55,7 +55,7 @@ describe("OnboardingPopup", () => {
       </div>,
     )
     expect(getByText("test_text")).toBeInTheDocument()
-    expect(getByText("2 / 4")).toBeInTheDocument()
+    expect(getByText("2/4")).toBeInTheDocument()
     expect(
       getByRole("button", { name: "onboarding.end_tour" }),
     ).toBeInTheDocument()
@@ -79,7 +79,7 @@ describe("OnboardingPopup", () => {
       </div>,
     )
     expect(getByText("test_text")).toBeInTheDocument()
-    expect(getByText("4 / 4")).toBeInTheDocument()
+    expect(getByText("4/4")).toBeInTheDocument()
     expect(
       getByRole("button", { name: "onboarding.end_tour" }),
     ).toBeInTheDocument()
