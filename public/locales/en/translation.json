@@ -38,18 +38,25 @@
   },
   "system": {
     "version": "Version",
-    "git_hub": "GitHub"
+    "git_hub": "GitHub",
+    "system_menu": "System menu"
   },
   "onboarding_cutup": {
     "intro_title": "Cut up",
     "intro_text": "The 'cut-up technique' is a method of creating new texts or artworks by cutting up existing material and rearranging the pieces. Originating with Dadaists and later popularized by William S. Burroughs and Brion Gysin, it involves taking text (or images) and literally cutting it into sections, then reassembling them in a new order to generate fresh meanings or unexpected juxtapositions.",
+    "source_text_title": "Source text",
     "source_text": "Paste or type your source text here.",
+    "cut_controls_title": "Cut",
     "cut_controls": "Set the average number of words in each cut piece. Random sets how much variance in the length.",
+    "join_controls_title": "Join",
     "join_controls": "Set the average number pieces to join together. Random sets how much variance in the number of pieces.",
+    "cutup_controls_title": "Cut up",
     "cutup_controls": "Generate the new text. Results will be added to existing results.",
+    "results_panel_title": "Results",
     "results_panel": "The results of the cutup. You can drag the pieces to rearrange them or delete individual pieces. When ready you can copy the results to the clipboard."
   },
   "onboarding_common": {
+    "help_title": "Help",
     "help": "You can replay this tour by clicking 'Help' in the menu."
   }
 }

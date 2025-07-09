@@ -10,7 +10,7 @@ import AnimatedList from "../../../components/display/AnimatedList"
 import Typography from "@mui/material/Typography"
 import ControlBarLayoutItem from "../../../layouts/ControlBarLayoutItem"
 
-const Panel = styled("div")(({ theme }) => ({
+const Panel = styled("section")(({ theme }) => ({
   flex: 1,
   height: "100%",
   display: "flex",
@@ -48,7 +48,7 @@ const CutUpResultsPanel = ({
 }: CutUpResultsPanelProps) => {
   const { t } = useTranslation()
   return (
-    <Panel>
+    <Panel aria-label={t("cut_up.results")}>
       <ResultsPanel>
         {cutUpResults.length === 0 ? (
           <NoResults>

@@ -37,6 +37,7 @@ const SystemMenu = ({ hasOnboardingTour }: SystemMenuProps) => {
         ref={setAnchor}
         color="inherit"
         onClick={() => setMenuOpen(state => !state)}
+        aria-label={t("system.system_menu")}
       >
         <MenuIcon />
       </IconButton>
