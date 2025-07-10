@@ -76,4 +76,21 @@ describe("CutUpInputForm", () => {
       ).toBeInTheDocument(),
     )
   })
+  test("clicking on clear text resets input text", async () => {
+    const { getByRole } = render(
+      <CutUpInputForm onSubmitForm={mock_onSubmitForm} />,
+    )
+
+    fireEvent.change(getByRole("textbox"), {
+      target: {
+        defaultValue: "test_text",
+      },
+    })
+
+    expect(getByRole("textbox")).toHaveTextContent("test_text")
+
+    fireEvent.click(getByRole("button", { name: "cut_up.clear_source_text" }))
+
+    expect(getByRole("textbox")).toHaveTextContent("")
+  })
 })
