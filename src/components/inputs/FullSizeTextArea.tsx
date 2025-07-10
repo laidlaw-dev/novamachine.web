@@ -37,16 +37,16 @@ const BorderlessTextArea = styled("textarea")(() => ({
   fontSize: "1rem",
 }))
 
-const BottomContainer = styled("div")(() => ({
+const BottomContainer = styled("div")(({ theme }) => ({
   width: "100%",
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-start",
+  padding: theme.spacing(1),
 }))
 
 const ErrorMessage = styled("span")(({ theme }) => ({
-  padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-  borderRadius: theme.shape.borderRadius,
+  lineHeight: "2rem",
   color: theme.palette.error.main,
 }))
 
