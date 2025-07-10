@@ -58,6 +58,20 @@ test("clicking on cut up when source text is empty displays validation error", a
   await expect(page.getByText("Cut up requires some text")).toBeVisible()
 })
 
+test("clicking on clear button clears input text", async ({ page }) => {
+  await page.goto("/")
+
+  await page
+    .getByRole("textbox")
+    .fill("Aaa Bbb Ccc Ddd Eee Fff Ggg Hhh Iii Jjj")
+
+  await page.getByRole("button", { name: "Clear text" }).click()
+
+  await page.getByRole("button", { name: "Cut up" }).click()
+
+  await expect(page.getByText("Cut up requires some text")).toBeVisible()
+})
+
 test("clicking on cut up produces results", async ({ page }) => {
   await page.goto("/")
 

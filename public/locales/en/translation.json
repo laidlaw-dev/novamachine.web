@@ -15,6 +15,7 @@
     "action": "Cut up",
     "results": "Cut up results",
     "enter_source_text": "Enter some source text...",
+    "clear_source_text": "Clear text",
     "cut": "Cut",
     "join": "Join",
     "length": "Length",

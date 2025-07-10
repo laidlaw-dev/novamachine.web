@@ -2,6 +2,9 @@ import Paper from "@mui/material/Paper"
 import { styled } from "@mui/material/styles"
 import { extendedPalette } from "../../theme/colors"
 import type { DetailedHTMLProps, HTMLAttributes } from "react"
+import FlexSpacer from "../../layouts/FlexSpacer"
+import Button from "@mui/material/Button"
+import { useTranslation } from "react-i18next"
 
 const Container = styled(Paper)(({ theme }) => ({
   flex: 1,
@@ -34,9 +37,16 @@ const BorderlessTextArea = styled("textarea")(() => ({
   fontSize: "1rem",
 }))
 
+const BottomContainer = styled("div")(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  padding: theme.spacing(1),
+}))
+
 const ErrorMessage = styled("span")(({ theme }) => ({
-  padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-  borderRadius: theme.shape.borderRadius,
+  lineHeight: "2rem",
   color: theme.palette.error.main,
 }))
 
@@ -47,17 +57,28 @@ interface FullSizeTextAreaProps
   > {
   placeholder?: string
   errorMessage?: string
+  onClearText?: () => void
 }
 
 const FullSizeTextArea = (props: FullSizeTextAreaProps) => {
+  const { t } = useTranslation()
+  const { errorMessage, onClearText, ...textareaProps } = props
   return (
     <OuterContainer>
       <Container>
-        <BorderlessTextArea {...props} />
+        <BorderlessTextArea {...textareaProps} />
       </Container>
-      {props.errorMessage && (
-        <ErrorMessage role="alert">{props.errorMessage}</ErrorMessage>
-      )}
+      <BottomContainer>
+        {props.errorMessage && (
+          <ErrorMessage role="alert">{errorMessage}</ErrorMessage>
+        )}
+        <FlexSpacer />
+        {props.onClearText && (
+          <Button color="secondary" variant="text" onClick={onClearText}>
+            {t("cut_up.clear_source_text")}
+          </Button>
+        )}
+      </BottomContainer>
     </OuterContainer>
   )
 }

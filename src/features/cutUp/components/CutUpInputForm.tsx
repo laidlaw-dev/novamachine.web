@@ -54,6 +54,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
     handleSubmit,
     control,
     formState: { errors },
+    resetField,
   } = useForm<CutUpInputFormFields>({
     defaultValues: {
       inputText: "",
@@ -63,6 +64,10 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
       joinRandomize: 5,
     },
   })
+
+  const handleResetInputText = () => {
+    resetField("inputText")
+  }
 
   const onSubmit: SubmitHandler<CutUpInputFormFields> = data =>
     onSubmitForm(data)
@@ -82,6 +87,7 @@ const CutUpInputForm = ({ onSubmitForm }: CutUpInputFormProps) => {
                 <FullSizeTextArea
                   {...field}
                   placeholder={t("cut_up.enter_source_text")}
+                  onClearText={handleResetInputText}
                   errorMessage={
                     errors.inputText?.type === "required"
                       ? t("cut_up.validation_no_text")
